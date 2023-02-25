@@ -16,6 +16,8 @@ A browser-based version of memory matcher.
 - As a user, I want the game to keep matched cards flipped over so I can see my progress in the game.
     - BONUS: As a user, I want to see a progress bar showing my progress so I can clearly see my progress in the game.
 - As a user, I want the game to congratulate me if I manage to find all of the matches so that I know when I've completed the game and I can get the satisfaction of completing the game.
+    - BONUS: As a user, I want the site to tell me how long I am taking/took so that I can have a challenge in being timed.
+    - BONUS: As a user, I want the site to show my top times so I can compare my times.
 - As a user, I want to be able to restart the game whether during or after a game so that I can try the game again.
     - BONUS: As a user, I want the game to warn me before restarting during an unfinished game so that I don't accidentally erase my progress.
 

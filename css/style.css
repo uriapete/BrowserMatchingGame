@@ -6,3 +6,40 @@ body{
 h1 {
     text-align: center;
 }
+
+.gameBoard{
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    /* display: inline-flex; */
+    display: inline-flex;
+    justify-content: center;
+    /* max-height: 20vh; */
+    text-align: center;
+}
+
+.card{
+    text-align: center;
+    /* vertical-align: bottom; */
+    /* height: 20vh; */
+    width: 8vw;
+    /* max-height: 20vh; */
+    max-width: 8vw;
+    /* padding: 5% 0; */
+    line-height: 20vh;
+    border: 5px black solid;
+    margin: 1%;
+    background-color: cornflowerblue;
+    color: white;
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+
+.flip{
+    background-color: white;
+    color: black;
+    font-size: 1.5em;
+}

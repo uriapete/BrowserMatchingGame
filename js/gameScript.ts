@@ -8,27 +8,27 @@
 // remember to tsc -p jsFolder or else all of your lets and consts will be turned into disgusting vars
 
 // getting gameboard
-const gameBoard : HTMLDivElement = document.querySelector(".gameBoard")!;
+const gameBoard: HTMLDivElement = document.querySelector(".gameBoard")!;
 
 // console.log(gameBoard);
 
 // getting setup area
-const gameSetUp : HTMLDivElement = document.querySelector("div.gameSetUp")!;
+const gameSetUp: HTMLDivElement = document.querySelector("div.gameSetUp")!;
 
 // console.log(gameSetUp);
 
 // getting row input
-const rowInput : HTMLInputElement = gameSetUp.querySelector("input#rows-input")!;
+const rowInput: HTMLInputElement = gameSetUp.querySelector("input#rows-input")!;
 
 // console.log(rowInput);
 
 // getting columns input
-const columnsInput : HTMLInputElement = gameSetUp.querySelector("input#columns-input")!;
+const columnsInput: HTMLInputElement = gameSetUp.querySelector("input#columns-input")!;
 
 // console.log(columnsInput);
 
 // getting start button
-const startBtn : HTMLDivElement = gameSetUp.querySelector("button#startButton")!;
+const startBtn: HTMLDivElement = gameSetUp.querySelector("button#startButton")!;
 
 // console.log(startBtn);
 
@@ -40,15 +40,15 @@ const startBtn : HTMLDivElement = gameSetUp.querySelector("button#startButton")!
 // all good
 
 // getting gamemode h2
-const gameMode : HTMLHeadingElement = document.querySelector("h2.gameMode")!;
+const gameMode: HTMLHeadingElement = document.querySelector("h2.gameMode")!;
 
 // console.log(gameMode);
 
-const congrats : HTMLHeadingElement = document.querySelector("h2.congrats")!;
+const congrats: HTMLHeadingElement = document.querySelector("h2.congrats")!;
 
 // console.log(congrats);
 
-const numOfCards : HTMLSpanElement = document.querySelector("span#numOfCards")!;
+const spanNumOfCards: HTMLSpanElement = document.querySelector("span#numOfCards")!;
 
 // console.log(numOfCards);
 // i think it's all good but if not I'll put more
@@ -56,10 +56,16 @@ const numOfCards : HTMLSpanElement = document.querySelector("span#numOfCards")!;
 // now for the JS-side game vars
 
 class Card {
-    content : string;
-    id : number;
-    constructor(cont : string, idnum : number) {
+    content: string;
+    id: number;
+    constructor(cont: string, idnum: number) {
         this.content = cont;
         this.id = idnum;
     }
 }
+
+// for deck
+let arrOfCards : Array<Card> = [];
+
+// counting the deck
+let numOfCards : number = 0;

@@ -54,3 +54,12 @@ const numOfCards : HTMLSpanElement = document.querySelector("span#numOfCards")!;
 // i think it's all good but if not I'll put more
 
 // now for the JS-side game vars
+
+class Card {
+    content : string;
+    id : number;
+    constructor(cont : string, idnum : number) {
+        this.content = cont;
+        this.id = idnum;
+    }
+}

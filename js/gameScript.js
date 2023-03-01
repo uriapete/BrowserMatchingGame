@@ -31,4 +31,12 @@ const gameMode = document.querySelector("h2.gameMode");
 const congrats = document.querySelector("h2.congrats");
 // console.log(congrats);
 const numOfCards = document.querySelector("span#numOfCards");
-console.log(numOfCards);
+// console.log(numOfCards);
+// i think it's all good but if not I'll put more
+// now for the JS-side game vars
+class Card {
+    constructor(cont, idnum) {
+        this.content = cont;
+        this.id = idnum;
+    }
+}

@@ -16,17 +16,23 @@ h1, h2 {
     /* display: inline-flex; */
     display: inline-flex;
     justify-content: center;
+    /* align-items: center; */
+    margin: auto;
     /* max-height: 20vh; */
     text-align: center;
+    width: 80vw;
+    /* max-width: 80vw; */
 }
 
 .card{
     text-align: center;
     /* vertical-align: bottom; */
     /* height: 20vh; */
-    width: 8vw;
-    /* max-height: 20vh; */
     max-width: 8vw;
+    width: 10%;
+    flex-shrink: 1;
+    /* max-height: 20vh; */
+    /* max-width: 8vw; */
     /* padding: 5% 0; */
     line-height: 20vh;
     border: 5px black solid;

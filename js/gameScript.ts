@@ -90,3 +90,27 @@ let gameActive : boolean = false;
 
 // array of cards (HTML div nodes) with .matched
 let matchedCards : Array<HTMLDivElement> = [];
+
+// now for functions
+
+// i was going to have two params: rows : number, columns:number, but decided nah
+function createDeck(numCards : number){
+    // numOfCards = rows*columns;
+    // for each card:
+    for (let i = 0, j = 0; i < numCards; i++, j++) {
+        // const element = array[i];
+        // i'm just gonna use a number ticking up as the card content for now
+        const content : string = j.toString();
+        // make a new card and push it to arrOfCards
+        arrOfCards.push(new Card(content,i));
+
+        // make another new card with same content, diff id, and push to arrOfCards
+        i++;
+        arrOfCards.push(new Card(content,i));
+    }
+}
+
+// createDeck(8);
+// console.log(arrOfCards);
+// all good
+

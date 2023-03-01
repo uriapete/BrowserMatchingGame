@@ -69,3 +69,24 @@ let arrOfCards : Array<Card> = [];
 
 // counting the deck
 let numOfCards : number = 0;
+
+// number of cards (not pairs!) matched: should equal numOfCards at the end of the game
+let numMatched : number = 0;
+
+// amt of fails
+let fails : number = 0;
+
+// maximum amt of fails
+let maxFails : number = 3;
+
+// amt of cards per "pair" or how many cards per match
+let matches : number = 2;
+
+// number of unmatched cards that are currently flipped
+let numFlipped : number = 0;
+
+// if game is currently active or not
+let gameActive : boolean = false;
+
+// array of cards (HTML div nodes) with .matched
+let matchedCards : Array<HTMLDivElement> = [];

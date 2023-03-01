@@ -30,7 +30,7 @@ const gameMode = document.querySelector("h2.gameMode");
 // console.log(gameMode);
 const congrats = document.querySelector("h2.congrats");
 // console.log(congrats);
-const numOfCards = document.querySelector("span#numOfCards");
+const spanNumOfCards = document.querySelector("span#numOfCards");
 // console.log(numOfCards);
 // i think it's all good but if not I'll put more
 // now for the JS-side game vars
@@ -40,3 +40,21 @@ class Card {
         this.id = idnum;
     }
 }
+// for deck
+let arrOfCards = [];
+// counting the deck
+let numOfCards = 0;
+// number of cards (not pairs!) matched: should equal numOfCards at the end of the game
+let numMatched = 0;
+// amt of fails
+let fails = 0;
+// maximum amt of fails
+let maxFails = 3;
+// amt of cards per "pair" or how many cards per match
+let matches = 2;
+// number of unmatched cards that are currently flipped
+let numFlipped = 0;
+// if game is currently active or not
+let gameActive = false;
+// array of cards (HTML div nodes) with .matched
+let matchedCards = [];

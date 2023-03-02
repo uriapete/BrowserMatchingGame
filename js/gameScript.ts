@@ -94,6 +94,9 @@ let gameActive: boolean = false;
 // array of cards (HTML div nodes) with .matched
 let matchedCards: Array<HTMLDivElement> = [];
 
+// array of html cards ughh
+let arrOfHTMLCards: Array<HTMLDivElement> = [];
+
 // now for functions
 
 // i was going to have two params: rows : number, columns:number, but decided nah
@@ -142,6 +145,12 @@ function createTable(rows: number, columns: number) {
     // creating temp copy array so we can keep track of which cards have or have not been added already
     let cardArr: Array<Card> = [...arrOfCards];
 
+    // creating array of rows
+    // let rowArr: Array<HTMLDivElement> = [];
+
+    // creating array of html cards
+    let divCardArr: Array<HTMLDivElement> = [];
+
     // for each row:
     for (let i = 0; i < rows; i++) {
         // const element = array[i];
@@ -181,20 +190,103 @@ function createTable(rows: number, columns: number) {
 
             // append card to row
             row.appendChild(card);
+
+            divCardArr.push(card);
         }
+        // rowArr.push(row);
     }
+    // return rowArr;
+    return divCardArr;
+}
+
+// function to flip cards
+function flipCard(card : HTMLDivElement){
+    // add flip class
+    card.classList.add("flip");
+
+    // change text of card to back content
+    card.innerHTML=arrOfCards[parseInt(card.id)].content;
+
+    // add num of flipped cards
+    numFlipped++;
+}
+
+function flipBack(){
+    // get list of flipped cards
+    const flippedCards : NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.card.flip");
+
+    // for each flipped card:
+    for (let i = 0; i < flippedCards.length; i++) {
+        const element = flippedCards[i];
+
+        // set content back to front text and remove flip class
+        element.innerHTML = cardFront;
+        element.classList.remove("flip");
+    }
+}
+
+function checkMatch(){
+    // get list of flipped cards
+    const flippedCards : NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.card.flip")!;
+
+    // get string to match for: it doesnt matter which one we get it from, we're checking if all of them match anyways
+    const matchFor : string = flippedCards[0].innerHTML;
+
+    // for each card in the list after the first (since we grabbed the content of the first card, so of course the first one will match)...
+    for (let i = 1; i < flippedCards.length; i++) {
+        const element = flippedCards[i];
+        // if the card doesn't match, break the loop and return false
+        if (element.innerHTML !== matchFor) {return false;}
+    }
+    // this code should only run if everything matched, in that case return true
+    return true;
 }
 
 // console.log(document.createElement("div"));
 
-// FOR TESTING ONLY:
+// FOR TESTING ONLY (but full code will probs be based on this): 
 startBtn.addEventListener("click", () => {
     // arrOfCards = [];
     let cardnums : number = parseInt(rowInput.value) * parseInt(columnsInput.value);
     // console.log(cardnums);
     createDeck(cardnums);
-    createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+
+    for (let i = 0; i < arrOfHTMLCards.length; i++) {
+        const element = arrOfHTMLCards[i];
+        element.addEventListener("click", function(){
+            // console.log(this);
+            // flipCard(this);
+            if (this.classList.contains("matched")||this.classList.contains("flip")){
+                return 0;
+            } else {
+                flipCard(this);
+                if (numFlipped>=matches){
+                    setTimeout(()=> {
+                        if(checkMatch()){
+                            console.log("yay! you got one");
+                        } else {flipBack();}
+                    },1000)
+                }
+            }
+        })
+    }
+
+    
 })
+
+
+
+// TESTING FLIP CARDS
+// gameBoard.addEventListener("click", function(e){
+//     // this;
+//     const card : HTMLDivElement = this.closest("div.card")!;
+//     console.log(card);
+// })
+
+
+
+// gameBoard.addEventListener()
 
 // MORE TESTING
 // let testCard01 : Card = new Card('uwu', 4);

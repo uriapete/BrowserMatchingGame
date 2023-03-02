@@ -60,9 +60,9 @@ let numFlipped = 0;
 // if game is currently active or not
 let gameActive = false;
 // array of cards (HTML div nodes) with .matched
-let matchedCards = [];
+let matchedCards;
 // array of html cards ughh
-let arrOfHTMLCards = [];
+let arrOfHTMLCards;
 // now for functions
 // i was going to have two params: rows : number, columns:number, but decided nah
 function createDeck(numCards) {
@@ -139,6 +139,15 @@ function createTable(rows, columns) {
     // return rowArr;
     return divCardArr;
 }
+// function to clear table
+function clearTable() {
+    gameBoard.innerHTML = "";
+    arrOfCards = [];
+    arrOfHTMLCards = [];
+    // matchedCards=[];
+    congrats.innerHTML = "";
+    fails = 0;
+}
 // function to flip cards
 function flipCard(card) {
     // add flip class
@@ -158,6 +167,7 @@ function flipBack() {
         element.innerHTML = cardFront;
         element.classList.remove("flip");
     }
+    numFlipped = 0;
 }
 function checkMatch() {
     // get list of flipped cards
@@ -175,6 +185,32 @@ function checkMatch() {
     // this code should only run if everything matched, in that case return true
     return true;
 }
+// funct for checking if the game is done
+function checkFinished() {
+    // get all cards that are matched
+    matchedCards = gameBoard.querySelectorAll("div.matched");
+    // if all cards are matched, return true
+    if (matchedCards.length >= numOfCards) {
+        return true;
+    }
+    // else, return false
+    else {
+        return false;
+    }
+}
+// function for turning from flips to matches
+function flipToMatched() {
+    // get all flipped cards
+    const flippedCards = gameBoard.querySelectorAll("div.flip");
+    // add .matched class and remove .flip to all
+    for (let i = 0; i < flippedCards.length; i++) {
+        const element = flippedCards[i];
+        element.classList.add("matched");
+        element.classList.remove("flip");
+    }
+    numFlipped = 0;
+    return checkFinished();
+}
 // console.log(document.createElement("div"));
 // event listeners:
 // event listener for counting amt of cards
@@ -191,7 +227,7 @@ gameSetUp.addEventListener("input", () => {
     else if (isNaN(parseInt(rowInput.value) * parseInt(columnsInput.value))) {
         // spanNumOfCards.classList.remove("bold-red-text");
         // spanNumOfCards.innerHTML="";
-        noMatchWarn.innerHTML = "Please input a number.";
+        noMatchWarn.innerHTML = "Please input numbers.";
         return 0;
     }
     // spanNumOfCards.classList.remove("bold-red-text");
@@ -207,6 +243,57 @@ gameSetUp.addEventListener("input", () => {
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML = `Number of cards needs to be above 0 and divisible by ${matches}!`;
     }
+});
+// function for congrats text
+function congratsText() {
+    congrats.innerHTML = "Good job! You matched them all!";
+    gameActive = false;
+}
+// event listener for clicking startbtn
+startBtn.addEventListener("click", () => {
+    // calculate numOfCards
+    numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
+    // if numOfCards is NaN, <=0, or not divisible by matches (default 2): break
+    if ((isNaN(numOfCards) || (numOfCards <= 0) || (numOfCards % matches !== 0))) {
+        return 0;
+    }
+    // this code should only run if numOfCards is usable
+    clearTable();
+    createDeck(numOfCards);
+    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+    // now let's make event listeners for the new cards
+    for (let i = 0; i < arrOfHTMLCards.length; i++) {
+        // element = this card
+        const element = arrOfHTMLCards[i];
+        // adding event listeners to the cards
+        element.addEventListener("click", function () {
+            // if the element is already matched, break
+            if (element.classList.contains("matched")) {
+                return 0;
+            }
+            // the following code should only run if the card wasn't already matched
+            // flip this card
+            flipCard(this);
+            // if number of flipped cards >= matches
+            if (numFlipped >= matches) {
+                setTimeout(() => {
+                    // check if the cards match
+                    const isMatch = checkMatch();
+                    // if they do: 
+                    if (isMatch) {
+                        // turn the cards into matched cards and check if the game is done:
+                        let isDone = flipToMatched();
+                        // if it is:
+                        if (isDone) {
+                            congratsText();
+                        }
+                    }
+                    flipBack();
+                }, 500);
+            }
+        });
+    }
+    gameActive = true;
 });
 // FOR TESTING ONLY (but full code will probs be based on this): 
 // startBtn.addEventListener("click", () => {

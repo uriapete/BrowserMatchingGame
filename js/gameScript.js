@@ -179,21 +179,31 @@ function checkMatch() {
 // event listeners:
 // event listener for counting amt of cards
 gameSetUp.addEventListener("input", () => {
-    if (gameActive) {
-        return 0;
-    }
-    else if (!rowInput.value || !columnsInput.value) {
-        spanNumOfCards.classList.remove("bold-red-text");
-        spanNumOfCards.innerHTML = "";
-        noMatchWarn.innerHTML = "";
-        return 0;
-    }
+    // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML = "";
     noMatchWarn.innerHTML = "";
+    // if the game is already active, break
+    if (gameActive) {
+        return 0;
+    }
+    // if any of the inputs are blank or not numbers, warning then break
+    else if (isNaN(parseInt(rowInput.value) * parseInt(columnsInput.value))) {
+        // spanNumOfCards.classList.remove("bold-red-text");
+        // spanNumOfCards.innerHTML="";
+        noMatchWarn.innerHTML = "Please input a number.";
+        return 0;
+    }
+    // spanNumOfCards.classList.remove("bold-red-text");
+    // spanNumOfCards.innerHTML="";
+    // noMatchWarn.innerHTML="";
+    // if the game is not active and the inputs are filled with numbers:
+    // calculate numOfCards
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
+    // set the html text on screen to numofcards
     spanNumOfCards.innerHTML = numOfCards.toString();
-    if (numOfCards % matches !== 0 || numOfCards === 0) {
+    // if numOfCards is not divisible by matches (default: 2): put up warnings
+    if (numOfCards % matches !== 0 || numOfCards <= 0) {
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML = `Number of cards needs to be above 0 and divisible by ${matches}!`;
     }

@@ -201,6 +201,14 @@ function createTable(rows: number, columns: number) {
     return divCardArr;
 }
 
+// function to clear table
+function clearTable(){
+    gameBoard.innerHTML="";
+    arrOfCards=[];
+    arrOfHTMLCards=[];
+    matchedCards=[];
+}
+
 // function to flip cards
 function flipCard(card : HTMLDivElement){
     // add flip class
@@ -284,6 +292,11 @@ gameSetUp.addEventListener("input", ()=>{
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML=`Number of cards needs to be above 0 and divisible by ${matches}!`
     }
+})
+
+// event listener for clicking startbtn
+startBtn.addEventListener("click",()=>{
+    // 
 })
 
 // FOR TESTING ONLY (but full code will probs be based on this): 

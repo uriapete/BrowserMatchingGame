@@ -55,3 +55,14 @@ h1, h2 {
     color: darkgray;
     font-size: 1.5em;
 }
+
+.bold-red-text{
+    font-weight: bold;
+    color: rgb(255, 34, 34);
+}
+
+#no-match-warning{
+    /* font-weight: bold;
+    color: red; */
+    font-size: 2em;
+}

@@ -50,12 +50,14 @@ const congrats: HTMLHeadingElement = document.querySelector("h2.congrats")!;
 
 const spanNumOfCards: HTMLSpanElement = document.querySelector("span#numOfCards")!;
 
+const noMatchWarn : HTMLParagraphElement = document.querySelector("p#no-match-warning")!;
+
 // console.log(numOfCards);
 // i think it's all good but if not I'll put more
 
-const cardFront: string = "Match!";
-
 // now for the JS-side game vars
+
+const cardFront: string = "Match!";
 
 class Card {
     content: string;
@@ -244,36 +246,58 @@ function checkMatch(){
 
 // console.log(document.createElement("div"));
 
-// FOR TESTING ONLY (but full code will probs be based on this): 
-startBtn.addEventListener("click", () => {
-    // arrOfCards = [];
-    let cardnums : number = parseInt(rowInput.value) * parseInt(columnsInput.value);
-    // console.log(cardnums);
-    createDeck(cardnums);
-    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+// event listeners:
 
-    for (let i = 0; i < arrOfHTMLCards.length; i++) {
-        const element = arrOfHTMLCards[i];
-        element.addEventListener("click", function(){
-            // console.log(this);
-            // flipCard(this);
-            if (this.classList.contains("matched")||this.classList.contains("flip")){
-                return 0;
-            } else {
-                flipCard(this);
-                if (numFlipped>=matches){
-                    setTimeout(()=> {
-                        if(checkMatch()){
-                            console.log("yay! you got one");
-                        } else {flipBack();}
-                    },1000)
-                }
-            }
-        })
+// event listener for counting amt of cards
+gameSetUp.addEventListener("input", ()=>{
+    if (gameActive){return 0;}
+    else if(!rowInput.value||!columnsInput.value){
+        spanNumOfCards.classList.remove("bold-red-text");
+        spanNumOfCards.innerHTML="";
+        noMatchWarn.innerHTML="";
+        return 0;
     }
+    spanNumOfCards.classList.remove("bold-red-text");
+    spanNumOfCards.innerHTML="";
+    noMatchWarn.innerHTML="";
+    numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
+    spanNumOfCards.innerHTML=numOfCards.toString();
+    if (numOfCards%matches!==0||numOfCards===0){
+        spanNumOfCards.classList.add("bold-red-text");
+        noMatchWarn.innerHTML=`Number of cards needs to be above 0 and divisible by ${matches}!`
+    }
+})
+
+// FOR TESTING ONLY (but full code will probs be based on this): 
+// startBtn.addEventListener("click", () => {
+//     // arrOfCards = [];
+//     let cardnums : number = parseInt(rowInput.value) * parseInt(columnsInput.value);
+//     // console.log(cardnums);
+//     createDeck(cardnums);
+//     arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+
+//     for (let i = 0; i < arrOfHTMLCards.length; i++) {
+//         const element = arrOfHTMLCards[i];
+//         element.addEventListener("click", function(){
+//             // console.log(this);
+//             // flipCard(this);
+//             if (this.classList.contains("matched")||this.classList.contains("flip")){
+//                 return 0;
+//             } else {
+//                 flipCard(this);
+//                 if (numFlipped>=matches){
+//                     setTimeout(()=> {
+//                         if(checkMatch()){
+//                             console.log("yay! you got one");
+//                         } else {flipBack();}
+//                     },1000)
+//                 }
+//             }
+//         })
+//     }
 
     
-})
+// })
 
 
 

@@ -244,47 +244,36 @@ function checkMatch(){
 
 // console.log(document.createElement("div"));
 
-// event listeners:
-
-// event listener for counting amt of cards
-gameSetUp.addEventListener("input", ()=>{
-    if (gameActive){return 0;}
-    else {
-        numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
-        spanNumOfCards.innerHTML=numOfCards.toString();
-    }
-})
-
 // FOR TESTING ONLY (but full code will probs be based on this): 
-// startBtn.addEventListener("click", () => {
-//     // arrOfCards = [];
-//     let cardnums : number = parseInt(rowInput.value) * parseInt(columnsInput.value);
-//     // console.log(cardnums);
-//     createDeck(cardnums);
-//     arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+startBtn.addEventListener("click", () => {
+    // arrOfCards = [];
+    let cardnums : number = parseInt(rowInput.value) * parseInt(columnsInput.value);
+    // console.log(cardnums);
+    createDeck(cardnums);
+    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
 
-//     for (let i = 0; i < arrOfHTMLCards.length; i++) {
-//         const element = arrOfHTMLCards[i];
-//         element.addEventListener("click", function(){
-//             // console.log(this);
-//             // flipCard(this);
-//             if (this.classList.contains("matched")||this.classList.contains("flip")){
-//                 return 0;
-//             } else {
-//                 flipCard(this);
-//                 if (numFlipped>=matches){
-//                     setTimeout(()=> {
-//                         if(checkMatch()){
-//                             console.log("yay! you got one");
-//                         } else {flipBack();}
-//                     },1000)
-//                 }
-//             }
-//         })
-//     }
+    for (let i = 0; i < arrOfHTMLCards.length; i++) {
+        const element = arrOfHTMLCards[i];
+        element.addEventListener("click", function(){
+            // console.log(this);
+            // flipCard(this);
+            if (this.classList.contains("matched")||this.classList.contains("flip")){
+                return 0;
+            } else {
+                flipCard(this);
+                if (numFlipped>=matches){
+                    setTimeout(()=> {
+                        if(checkMatch()){
+                            console.log("yay! you got one");
+                        } else {flipBack();}
+                    },1000)
+                }
+            }
+        })
+    }
 
     
-// })
+})
 
 
 

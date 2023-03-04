@@ -355,6 +355,10 @@ startBtn.addEventListener("click",function(){
         // adding event listeners to the cards
         element.addEventListener("click",function(){
 
+            // below if statement usually shouldn't run at all, but redundancy is good
+            // if game isn't active, break
+            if(!gameActive){return 0;}
+
             // if cards are being timed out for checking, break
             if(cardTimeOut){return 0;}
 

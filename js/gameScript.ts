@@ -18,15 +18,17 @@ const startBtn: HTMLDivElement = gameSetUp.querySelector("button#startButton")!;
 // getting gamemode h2
 const gameMode: HTMLHeadingElement = document.querySelector("h2.gameMode")!;
 
-// console.log(gameMode);
-
+// space for congrats text
 const congrats: HTMLHeadingElement = document.querySelector("h2.congrats")!;
 
-// console.log(congrats);
-
+// getting space for the number disp. num of cards
 const spanNumOfCards: HTMLSpanElement = document.querySelector("span#numOfCards")!;
 
+// getting space for warning text under settings
 const noMatchWarn : HTMLParagraphElement = document.querySelector("p#no-match-warning")!;
+
+// getting flip at start button
+const flipAtStartButton: HTMLButtonElement = document.querySelector("button#flip-start-button")!;
 
 // i think it's all good but if not I'll put more
 

@@ -12,11 +12,15 @@ const columnsInput = gameSetUp.querySelector("input#columns-input");
 const startBtn = gameSetUp.querySelector("button#startButton");
 // getting gamemode h2
 const gameMode = document.querySelector("h2.gameMode");
-// console.log(gameMode);
+// space for congrats text
 const congrats = document.querySelector("h2.congrats");
-// console.log(congrats);
+// getting space for the number disp. num of cards
 const spanNumOfCards = document.querySelector("span#numOfCards");
+// getting space for warning text under settings
 const noMatchWarn = document.querySelector("p#no-match-warning");
+// getting flip at start button
+const flipAtStartButton = document.querySelector("button#flip-start-button");
+console.log(flipAtStartButton);
 // i think it's all good but if not I'll put more
 // now for the JS-side game vars
 const cardFront = "Match!";

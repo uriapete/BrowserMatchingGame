@@ -69,6 +69,9 @@ let numFlipped: number = 0;
 // if game is currently active or not
 let gameActive: boolean = false;
 
+// if game is set to flip cards at beginning or not
+let flipAtStart: boolean = true;
+
 // if cards are flipped and timed out for checking
 let cardTimeOut: boolean = false;
 
@@ -289,10 +292,28 @@ startBtn.addEventListener("click",function(){
     // if numOfCards is NaN, <= amt of cards per "pair", or not divisible by matches (default 2): break
     if((isNaN(numOfCards)||(numOfCards<=matches)||(numOfCards%matches!==0))){return 0;}
 
-    // this code should only run if numOfCards is usable
+    // this code should only run if numOfCards is usable:
+
     clearTable();
     createDeck(numOfCards);
+
+    // this function returns an array of the cards, so save it here
     arrOfHTMLCards = createTable(parseInt(rowInput.value),parseInt(columnsInput.value));
+
+    // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
+    if(flipAtStart){
+        for (let i = 0; i < arrOfHTMLCards.length; i++) {
+            const element = arrOfHTMLCards[i];
+            flipCard(element);
+        }
+        setTimeout(() => {
+            for (let i = 0; i < arrOfHTMLCards.length; i++) {
+                const element = arrOfHTMLCards[i];
+                flipBack();
+            }
+            
+        }, 1500);
+    }
 
     // now let's make event listeners for the new cards
     for (let i = 0; i < arrOfHTMLCards.length; i++) {

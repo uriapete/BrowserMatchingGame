@@ -7,6 +7,14 @@ h1, h2{
     text-align: center;
 }
 
+.flip-at-start-on{
+    background-color: rgb(29, 142, 46);
+}
+
+.flip-at-start-off{
+    background-color: gray;
+}
+
 .gameBoard{
     display: flex;
     flex-direction: column;

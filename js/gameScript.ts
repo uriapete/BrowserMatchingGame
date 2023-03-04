@@ -30,6 +30,9 @@ const noMatchWarn : HTMLParagraphElement = document.querySelector("p#no-match-wa
 // getting flip at start button
 const flipAtStartButton: HTMLButtonElement = document.querySelector("button#flip-start-button")!;
 
+// getting flip at start span (shows on or off)
+const flipAtStartSpan: HTMLSpanElement = flipAtStartButton.querySelector("span#flip-start-val")!;
+
 // i think it's all good but if not I'll put more
 
 // now for the JS-side game vars
@@ -283,6 +286,21 @@ gameSetUp.addEventListener("input", function(){
     if (numOfCards%matches!==0||numOfCards<=matches){
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML=`Number of cards needs to be above ${matches} and divisible by ${matches}!`
+    }
+})
+
+// event listener for flip-start toggle
+flipAtStartButton.addEventListener("click", function(){
+    if(flipAtStart){
+        flipAtStart = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+        flipAtStartSpan.innerHTML = "Off";
+    } else {
+        flipAtStart = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+        flipAtStartSpan.innerHTML = "On";
     }
 })
 

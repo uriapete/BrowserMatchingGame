@@ -1,5 +1,54 @@
-## I'm making:
-A browser-based version of memory matcher.
+# Browser Number Matching Game
+
+A simple card matching game where you match numbers. Has customization for amount of cards and amount of cards per matching set.
+
+## Screenshots
+
+Page on arrival:
+![Picture of page on arrival](./readMeAssets/blank%20page.png)
+
+Setting up game:
+![Picture of page during game set up](./readMeAssets/setup%2C%20no%20game.png)
+
+Set up warning:
+![Picture of set up giving a warning](./readMeAssets/setup%20warning.png)
+
+An example of a game:
+![Picture of the page during a game](./readMeAssets/3x4%2C%202%20game.png)
+
+Another example of a game:
+![Picture of the page during a game](./readMeAssets/3x4%20game.png)
+
+Congratulations message:
+![Picture of congratulations message](./readMeAssets/game%20congrats.png)
+
+## Technologies used
+
+- HTML
+- CSS
+- Typescript / Javascript
+    - Document Object Manipulation (DOM)
+
+## Getting started - Wanna play?
+
+You can find the game here: https://uriapete.github.io/BrowserMatchingGame/
+Enter into all of the input prompts before starting. Feel free to tweak the settings to your liking!
+To start, click the start button. The cards will appear below. You can restart at any time by clicking start again.
+Click on the cards to flip them. They will reveal the other side.
+
+Have fun!
+
+## Next steps
+
+You can see the user stories below for planned features. But to summarize:
+- Fail & strike system: the game will end if you fail a match too many times
+    - Customizable max amount of fails
+    - Deck reveals all cards after failed game
+- Warning for restarting game
+- Warning for large amount of cards
+- Timer & best times
+- Progress bar
+
 
 ## User stories:
 
@@ -24,10 +73,10 @@ A browser-based version of memory matcher.
 ## Wireframes:
 
 Page on arrival:
-![Website on arrival](./readMeAssets/GAP1%20Wireframe%20v001.png)
+![Website on arrival](./readMeAssets/Wireframe%20v001.png)
 
 Page during play:
-![Website while the game is active](./readMeAssets/GAP1%20Wireframe%20active%20v001.png)
+![Website while the game is active](./readMeAssets/Wireframe%20active%20v001.png)
 
 ## Sketches:
 

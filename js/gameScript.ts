@@ -242,7 +242,7 @@ function flipToMatched(){
 // event listeners:
 
 // event listener for counting amt of cards
-gameSetUp.addEventListener("input", ()=>{
+gameSetUp.addEventListener("input", function(){
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML="";
@@ -281,7 +281,7 @@ function congratsText(){
 }
 
 // event listener for clicking startbtn
-startBtn.addEventListener("click",()=>{
+startBtn.addEventListener("click",function(){
     // calculate numOfCards
     numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
 
@@ -308,6 +308,9 @@ startBtn.addEventListener("click",()=>{
             // if the element is already matched, break
             if(element.classList.contains("matched")){return 0;}
 
+            // if the element is already flipped, break
+            if(element.classList.contains("flip")){return 0;}
+
             // the following code should only run if the card wasn't already matched
 
             // flip this card
@@ -321,7 +324,7 @@ startBtn.addEventListener("click",()=>{
                 cardTimeOut = true;
 
                 // set a timeout so the user can see what cards they matched
-                setTimeout(()=>{
+                setTimeout(function(){
                 // check if the cards match
                 const isMatch : boolean = checkMatch();
 

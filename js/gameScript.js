@@ -175,7 +175,7 @@ function flipToMatched() {
 }
 // event listeners:
 // event listener for counting amt of cards
-gameSetUp.addEventListener("input", () => {
+gameSetUp.addEventListener("input", function () {
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML = "";
@@ -206,7 +206,7 @@ function congratsText() {
     gameActive = false;
 }
 // event listener for clicking startbtn
-startBtn.addEventListener("click", () => {
+startBtn.addEventListener("click", function () {
     // calculate numOfCards
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
     // if numOfCards is NaN, <=0, or not divisible by matches (default 2): break
@@ -231,6 +231,10 @@ startBtn.addEventListener("click", () => {
             if (element.classList.contains("matched")) {
                 return 0;
             }
+            // if the element is already flipped, break
+            if (element.classList.contains("flip")) {
+                return 0;
+            }
             // the following code should only run if the card wasn't already matched
             // flip this card
             flipCard(this);
@@ -239,7 +243,7 @@ startBtn.addEventListener("click", () => {
                 // add a mark to not allow matches before the timeout funct executes!
                 cardTimeOut = true;
                 // set a timeout so the user can see what cards they matched
-                setTimeout(() => {
+                setTimeout(function () {
                     // check if the cards match
                     const isMatch = checkMatch();
                     // if they do: 

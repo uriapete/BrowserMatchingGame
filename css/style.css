@@ -3,7 +3,7 @@ body{
     color: white;
 }
 
-h1, h2 {
+h1, h2{
     text-align: center;
 }
 
@@ -13,35 +13,23 @@ h1, h2 {
 }
 
 .row{
-    /* display: inline-flex; */
     display: inline-flex;
     justify-content: center;
-    /* align-items: center; */
     margin: auto;
-    /* max-height: 20vh; */
     text-align: center;
     width: 80vw;
-    /* max-width: 80vw; */
 }
 
 .card{
     text-align: center;
-    /* vertical-align: bottom; */
-    /* height: 20vh; */
     max-width: 8vw;
     width: 10%;
     flex-shrink: 1;
-    /* max-height: 20vh; */
-    /* max-width: 8vw; */
-    /* padding: 5% 0; */
     line-height: 20vh;
     border: 5px black solid;
     margin: 1%;
     background-color: cornflowerblue;
     color: white;
-    /* flex-direction: column;
-    justify-content: center;
-    align-items: center; */
 }
 
 .flip{
@@ -61,8 +49,10 @@ h1, h2 {
     color: rgb(255, 34, 34);
 }
 
+#settings{
+    margin: 0 2vw;
+}
+
 #no-match-warning{
-    /* font-weight: bold;
-    color: red; */
     font-size: 2em;
 }

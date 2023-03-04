@@ -64,12 +64,6 @@ function createDeck(numCards) {
     for (let i = 0, j = 0; i < numCards; j++) {
         // i'm just gonna use a number ticking up as the card content for now
         const content = j.toString();
-        // // make a new card and push it to arrOfCards
-        // arrOfCards.push(new Card(content,i));
-        // // make another new card with same content, diff id, and push to arrOfCards
-        // i++;
-        // arrOfCards.push(new Card(content,i));
-        // i++;
         // for each "pair"/match set, make new cards with same content, diff id
         for (let k = 0; k < matches; i++, k++) {
             arrOfCards.push(new Card(content, i));

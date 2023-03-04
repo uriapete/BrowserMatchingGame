@@ -177,6 +177,7 @@ function clearTable(){
     gameBoard.innerHTML="";
     arrOfCards=[];
     arrOfHTMLCards=[];
+    gameMode.innerHTML="";
     congrats.innerHTML="";
     fails=0;
 }
@@ -330,6 +331,9 @@ startBtn.addEventListener("click",function(){
 
     // this function returns an array of the cards, so save it here
     arrOfHTMLCards = createTable(parseInt(rowInput.value),parseInt(columnsInput.value));
+
+    // setting gamemode text
+    gameMode.innerHTML=`${rowInput.value}x${columnsInput.value}`;
 
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
     if(flipAtStart){

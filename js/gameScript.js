@@ -3,7 +3,7 @@
 // getting gameboard
 const gameBoard = document.querySelector(".gameBoard");
 // getting setup area
-const gameSetUp = document.querySelector("div.gameSetUp");
+const gameSetUp = document.querySelector("div#settings");
 // getting row input
 const rowInput = gameSetUp.querySelector("input#rows-input");
 // getting columns input
@@ -19,9 +19,11 @@ const spanNumOfCards = document.querySelector("span#numOfCards");
 // getting space for warning text under settings
 const noMatchWarn = document.querySelector("p#no-match-warning");
 // getting flip at start button
-const flipAtStartButton = document.querySelector("button#flip-start-button");
+const flipAtStartButton = gameSetUp.querySelector("button#flip-start-button");
 // getting flip at start span (shows on or off)
 const flipAtStartSpan = flipAtStartButton.querySelector("span#flip-start-val");
+// getting amt per match/pair input
+const cardsPerMatchInput = gameSetUp.querySelector("input#input-num-per-match");
 // i think it's all good but if not I'll put more
 // now for the JS-side game vars
 const cardFront = "Match!";

@@ -4,7 +4,7 @@
 const gameBoard: HTMLDivElement = document.querySelector(".gameBoard")!;
 
 // getting setup area
-const gameSetUp: HTMLDivElement = document.querySelector("div.gameSetUp")!;
+const gameSetUp: HTMLDivElement = document.querySelector("div#settings")!;
 
 // getting row input
 const rowInput: HTMLInputElement = gameSetUp.querySelector("input#rows-input")!;
@@ -28,10 +28,13 @@ const spanNumOfCards: HTMLSpanElement = document.querySelector("span#numOfCards"
 const noMatchWarn : HTMLParagraphElement = document.querySelector("p#no-match-warning")!;
 
 // getting flip at start button
-const flipAtStartButton: HTMLButtonElement = document.querySelector("button#flip-start-button")!;
+const flipAtStartButton: HTMLButtonElement = gameSetUp.querySelector("button#flip-start-button")!;
 
 // getting flip at start span (shows on or off)
 const flipAtStartSpan: HTMLSpanElement = flipAtStartButton.querySelector("span#flip-start-val")!;
+
+// getting amt per match/pair input
+const cardsPerMatchInput: HTMLInputElement = gameSetUp.querySelector("input#input-num-per-match")!;
 
 // i think it's all good but if not I'll put more
 

@@ -58,12 +58,16 @@ h1, h2{
     color: rgb(255, 34, 34);
 }
 
-div#inputSettings input.gameSetUp{
+#inputSettings input.gameSetUp{
     padding: 1vh 1vw;
 }
 
+#input-other-settings div{
+    margin: 1vh 0;
+}
+
 #settings{
-    margin: 0 2vw;
+    margin: 2vh 2vw;
 }
 
 #startButton{

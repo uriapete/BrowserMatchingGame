@@ -1,43 +1,19 @@
-// const helloWorldMsg : string = "Hello World!";
-// console.log(helloWorldMsg);
-
-// do comments travel over too? indeed they do.
-
-// this is my first time playing with typescript so putting this here to remind myself:
-
-// remember to tsc -p jsFolder or else all of your lets and consts will be turned into disgusting vars
+// tscode
 
 // getting gameboard
 const gameBoard: HTMLDivElement = document.querySelector(".gameBoard")!;
 
-// console.log(gameBoard);
-
 // getting setup area
 const gameSetUp: HTMLDivElement = document.querySelector("div.gameSetUp")!;
-
-// console.log(gameSetUp);
 
 // getting row input
 const rowInput: HTMLInputElement = gameSetUp.querySelector("input#rows-input")!;
 
-// console.log(rowInput);
-
 // getting columns input
 const columnsInput: HTMLInputElement = gameSetUp.querySelector("input#columns-input")!;
 
-// console.log(columnsInput);
-
 // getting start button
 const startBtn: HTMLDivElement = gameSetUp.querySelector("button#startButton")!;
-
-// console.log(startBtn);
-
-// making a test event listener for the rows, columns, and start button
-// startBtn.addEventListener("click",()=>{
-//     console.log(rowInput.value)
-//     console.log(columnsInput.value)
-// })
-// all good
 
 // getting gamemode h2
 const gameMode: HTMLHeadingElement = document.querySelector("h2.gameMode")!;
@@ -52,7 +28,6 @@ const spanNumOfCards: HTMLSpanElement = document.querySelector("span#numOfCards"
 
 const noMatchWarn : HTMLParagraphElement = document.querySelector("p#no-match-warning")!;
 
-// console.log(numOfCards);
 // i think it's all good but if not I'll put more
 
 // now for the JS-side game vars
@@ -63,9 +38,10 @@ class Card {
     content: string;
     id: number;
     constructor(cont: string, idnum: number) {
-        // console.log(`Creating a new card with content ${cont} and ID ${idnum}`);
+        
         this.content = cont;
         this.id = idnum;
+
     }
 }
 
@@ -93,6 +69,9 @@ let numFlipped: number = 0;
 // if game is currently active or not
 let gameActive: boolean = false;
 
+// if cards are flipped and timed out for checking
+let cardTimeOut: boolean = false;
+
 // array of cards (HTML div nodes) with .matched
 let matchedCards: NodeListOf<HTMLDivElement>;
 
@@ -103,59 +82,35 @@ let arrOfHTMLCards: Array<HTMLDivElement>;
 
 // i was going to have two params: rows : number, columns:number, but decided nah
 function createDeck(numCards: number) {
-    // numOfCards = rows*columns;
-    // for testing:
-    // console.log(arrOfCards.length);
+
     // for each card:
     for (let i = 0, j = 0; i < numCards; j++) {
-        // const element = array[i];
+
         // i'm just gonna use a number ticking up as the card content for now
         const content: string = j.toString();
+
         // make a new card and push it to arrOfCards
 
-        // console.log(`Creating a new card with content ${j} and ID ${i}`);
-        // let card1: Card = new Card(content, i);
-        // console.log(card1);
-        // arrOfCards.push(card1);
-        // console.log(arrOfCards);
         arrOfCards.push(new Card(content,i));
 
         // make another new card with same content, diff id, and push to arrOfCards
 
         i++;
-        // console.log(`Creating a new card with content ${j} and ID ${i}`);
-        // let card2: Card = new Card(content, i);
-        // console.log(card2);
-        // arrOfCards.push(card2);
-        // console.log(arrOfCards);
         arrOfCards.push(new Card(content,i));
 
         i++;
-
-        // console.log(arrOfCards.length);
-
     }
-
-    // console.log(arrOfCards)
 }
-
-// createDeck(8);
-// console.log(arrOfCards);
-// all good
 
 function createTable(rows: number, columns: number) {
     // creating temp copy array so we can keep track of which cards have or have not been added already
     let cardArr: Array<Card> = [...arrOfCards];
-
-    // creating array of rows
-    // let rowArr: Array<HTMLDivElement> = [];
 
     // creating array of html cards
     let divCardArr: Array<HTMLDivElement> = [];
 
     // for each row:
     for (let i = 0; i < rows; i++) {
-        // const element = array[i];
         // create a row
         const row: HTMLDivElement = document.createElement("div");
 
@@ -206,7 +161,6 @@ function clearTable(){
     gameBoard.innerHTML="";
     arrOfCards=[];
     arrOfHTMLCards=[];
-    // matchedCards=[];
     congrats.innerHTML="";
     fails=0;
 }
@@ -285,8 +239,6 @@ function flipToMatched(){
     return checkFinished();
 }
 
-// console.log(document.createElement("div"));
-
 // event listeners:
 
 // event listener for counting amt of cards
@@ -301,16 +253,11 @@ gameSetUp.addEventListener("input", ()=>{
 
     // if any of the inputs are blank or not numbers, warning then break
     else if(isNaN(parseInt(rowInput.value)*parseInt(columnsInput.value))){
-        // spanNumOfCards.classList.remove("bold-red-text");
-        // spanNumOfCards.innerHTML="";
 
         noMatchWarn.innerHTML="Please input numbers.";
 
         return 0;
     }
-    // spanNumOfCards.classList.remove("bold-red-text");
-    // spanNumOfCards.innerHTML="";
-    // noMatchWarn.innerHTML="";
 
     // if the game is not active and the inputs are filled with numbers:
 
@@ -355,6 +302,9 @@ startBtn.addEventListener("click",()=>{
         // adding event listeners to the cards
         element.addEventListener("click",function(){
 
+            // if cards are being timed out for checking, break
+            if(cardTimeOut){return 0;}
+
             // if the element is already matched, break
             if(element.classList.contains("matched")){return 0;}
 
@@ -365,6 +315,12 @@ startBtn.addEventListener("click",()=>{
 
             // if number of flipped cards >= matches
             if (numFlipped>=matches){
+
+                // add a mark to not allow matches before the timeout funct executes!
+
+                cardTimeOut = true;
+
+                // set a timeout so the user can see what cards they matched
                 setTimeout(()=>{
                 // check if the cards match
                 const isMatch : boolean = checkMatch();
@@ -380,7 +336,12 @@ startBtn.addEventListener("click",()=>{
                         congratsText();
                     }
                 }
+
+                // flip back all unmatched cards
                 flipBack();
+
+                // let the system know timeout is done for checking
+                cardTimeOut = false;
             },500)}
 
         })
@@ -388,65 +349,3 @@ startBtn.addEventListener("click",()=>{
     gameActive=true;
 
 })
-
-// FOR TESTING ONLY (but full code will probs be based on this): 
-// startBtn.addEventListener("click", () => {
-//     // arrOfCards = [];
-//     let cardnums : number = parseInt(rowInput.value) * parseInt(columnsInput.value);
-//     // console.log(cardnums);
-//     createDeck(cardnums);
-//     arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
-
-//     for (let i = 0; i < arrOfHTMLCards.length; i++) {
-//         const element = arrOfHTMLCards[i];
-//         element.addEventListener("click", function(){
-//             // console.log(this);
-//             // flipCard(this);
-//             if (this.classList.contains("matched")||this.classList.contains("flip")){
-//                 return 0;
-//             } else {
-//                 flipCard(this);
-//                 if (numFlipped>=matches){
-//                     setTimeout(()=> {
-//                         if(checkMatch()){
-//                             console.log("yay! you got one");
-//                         } else {flipBack();}
-//                     },1000)
-//                 }
-//             }
-//         })
-//     }
-
-    
-// })
-
-
-
-// TESTING FLIP CARDS
-// gameBoard.addEventListener("click", function(e){
-//     // this;
-//     const card : HTMLDivElement = this.closest("div.card")!;
-//     console.log(card);
-// })
-
-
-
-// gameBoard.addEventListener()
-
-// MORE TESTING
-// let testCard01 : Card = new Card('uwu', 4);
-// console.log(testCard01);
-
-// console.log(arrOfCards);
-
-// arrOfCards.push(testCard01);
-
-// console.log(arrOfCards);
-
-// for (let i = 0; i < 4; i++) {
-//     let testcard : Card = new Card("owo", i);
-//     console.log(testcard);
-//     console.log(arrOfCards);
-//     arrOfCards.push(testcard);
-//     console.log(arrOfCards);
-// }

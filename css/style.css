@@ -26,7 +26,8 @@ h1, h2{
     width: 10%;
     flex-shrink: 1;
     line-height: 20vh;
-    border: 5px black solid;
+    border: 5px rgb(255, 255, 255) solid;
+    border-radius: 20px;
     margin: 1%;
     background-color: cornflowerblue;
     color: white;
@@ -49,8 +50,22 @@ h1, h2{
     color: rgb(255, 34, 34);
 }
 
+div#inputSettings input.gameSetUp{
+    padding: 1vh 1vw;
+}
+
 #settings{
     margin: 0 2vw;
+}
+
+#startButton{
+    background-color: rgb(80, 182, 255);
+    padding: 2vh 3vw;
+    border-radius: 10px;
+}
+
+#flip-start-button{
+    padding: 1vh 1vw;
 }
 
 #no-match-warning{

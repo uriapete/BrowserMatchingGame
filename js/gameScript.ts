@@ -99,7 +99,7 @@ function createDeck(numCards: number) {
 
         // i'm just gonna use a number ticking up as the card content for now
         const content: string = j.toString();
-        
+
         // for each "pair"/match set, make new cards with same content, diff id
         for (let k = 0; k < matches; i++, k++) {
             arrOfCards.push(new Card(content,i))
@@ -261,11 +261,8 @@ gameSetUp.addEventListener("input", function(){
     spanNumOfCards.innerHTML="";
     noMatchWarn.innerHTML="";
 
-    // if the game is already active, break
-    if (gameActive){return 0;}
-
     // if any of the inputs are blank or not numbers, warning then break
-    else if(isNaN(parseInt(rowInput.value)*parseInt(columnsInput.value))||isNaN(parseInt(cardsPerMatchInput.value))){
+    if(isNaN(parseInt(rowInput.value)*parseInt(columnsInput.value))||isNaN(parseInt(cardsPerMatchInput.value))){
 
         noMatchWarn.innerHTML="Please input numbers into all above fields.";
 
@@ -309,6 +306,9 @@ flipAtStartButton.addEventListener("click", function(){
 startBtn.addEventListener("click",function(){
     // calculate numOfCards
     numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
+
+    // set matches
+    matches=parseInt(cardsPerMatchInput.value);
 
     // if numOfCards is NaN, <= amt of cards per "pair", or not divisible by matches (default 2): break
     if((isNaN(numOfCards)||(numOfCards<=matches)||(numOfCards%matches!==0))){return 0;}

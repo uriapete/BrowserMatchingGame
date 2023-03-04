@@ -173,6 +173,11 @@ function flipToMatched() {
     numFlipped = 0;
     return checkFinished();
 }
+// function for congrats text
+function congratsText() {
+    congrats.innerHTML = "Good job! You matched them all!";
+    gameActive = false;
+}
 // event listeners:
 // event listener for counting amt of cards
 gameSetUp.addEventListener("input", function () {
@@ -194,23 +199,18 @@ gameSetUp.addEventListener("input", function () {
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
     // set the html text on screen to numofcards
     spanNumOfCards.innerHTML = numOfCards.toString();
-    // if numOfCards is not divisible by matches (default: 2): put up warnings
-    if (numOfCards % matches !== 0 || numOfCards <= 0) {
+    // if numOfCards is below or not divisible by matches (default: 2): put up warnings
+    if (numOfCards % matches !== 0 || numOfCards <= matches) {
         spanNumOfCards.classList.add("bold-red-text");
-        noMatchWarn.innerHTML = `Number of cards needs to be above 0 and divisible by ${matches}!`;
+        noMatchWarn.innerHTML = `Number of cards needs to be above ${matches} and divisible by ${matches}!`;
     }
 });
-// function for congrats text
-function congratsText() {
-    congrats.innerHTML = "Good job! You matched them all!";
-    gameActive = false;
-}
 // event listener for clicking startbtn
 startBtn.addEventListener("click", function () {
     // calculate numOfCards
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
-    // if numOfCards is NaN, <=0, or not divisible by matches (default 2): break
-    if ((isNaN(numOfCards) || (numOfCards <= 0) || (numOfCards % matches !== 0))) {
+    // if numOfCards is NaN, <= amt of cards per "pair", or not divisible by matches (default 2): break
+    if ((isNaN(numOfCards) || (numOfCards <= matches) || (numOfCards % matches !== 0))) {
         return 0;
     }
     // this code should only run if numOfCards is usable

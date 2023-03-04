@@ -32,6 +32,7 @@ Congratulations message:
 ## Getting started - Wanna play?
 
 You can find the game here: https://uriapete.github.io/BrowserMatchingGame/
+
 Enter into all of the input prompts before starting. Feel free to tweak the settings to your liking!
 To start, click the start button. The cards will appear below. You can restart at any time by clicking start again.
 Click on the cards to flip them. They will reveal the other side.

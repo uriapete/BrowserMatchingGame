@@ -259,7 +259,7 @@ startBtn.addEventListener("click", function () {
                 const element = arrOfHTMLCards[i];
                 flipBack();
             }
-        }, 1500);
+        }, 3000);
     }
     // now let's make event listeners for the new cards
     for (let i = 0; i < arrOfHTMLCards.length; i++) {

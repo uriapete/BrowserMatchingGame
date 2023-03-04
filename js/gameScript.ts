@@ -343,7 +343,7 @@ startBtn.addEventListener("click",function(){
                 flipBack();
             }
             
-        }, 1500);
+        }, 3000);
     }
 
     // now let's make event listeners for the new cards

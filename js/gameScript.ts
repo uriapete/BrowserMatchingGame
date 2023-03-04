@@ -270,9 +270,9 @@ gameSetUp.addEventListener("input", function(){
     if (gameActive){return 0;}
 
     // if any of the inputs are blank or not numbers, warning then break
-    else if(isNaN(parseInt(rowInput.value)*parseInt(columnsInput.value))){
+    else if(isNaN(parseInt(rowInput.value)*parseInt(columnsInput.value))||isNaN(parseInt(cardsPerMatchInput.value))){
 
-        noMatchWarn.innerHTML="Please input numbers.";
+        noMatchWarn.innerHTML="Please input numbers into all above fields.";
 
         return 0;
     }
@@ -281,6 +281,9 @@ gameSetUp.addEventListener("input", function(){
 
     // calculate numOfCards
     numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
+
+    // set matches
+    matches=parseInt(cardsPerMatchInput.value);
 
     // set the html text on screen to numofcards
     spanNumOfCards.innerHTML=numOfCards.toString();

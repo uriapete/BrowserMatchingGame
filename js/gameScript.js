@@ -199,13 +199,15 @@ gameSetUp.addEventListener("input", function () {
         return 0;
     }
     // if any of the inputs are blank or not numbers, warning then break
-    else if (isNaN(parseInt(rowInput.value) * parseInt(columnsInput.value))) {
-        noMatchWarn.innerHTML = "Please input numbers.";
+    else if (isNaN(parseInt(rowInput.value) * parseInt(columnsInput.value)) || isNaN(parseInt(cardsPerMatchInput.value))) {
+        noMatchWarn.innerHTML = "Please input numbers into all above fields.";
         return 0;
     }
     // if the game is not active and the inputs are filled with numbers:
     // calculate numOfCards
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
+    // set matches
+    matches = parseInt(cardsPerMatchInput.value);
     // set the html text on screen to numofcards
     spanNumOfCards.innerHTML = numOfCards.toString();
     // if numOfCards is below or not divisible by matches (default: 2): put up warnings

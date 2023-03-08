@@ -22,6 +22,12 @@ const noMatchWarn = document.querySelector("p#no-match-warning");
 const flipAtStartButton = gameSetUp.querySelector("button#flip-start-button");
 // getting flip at start span (shows on or off)
 const flipAtStartSpan = flipAtStartButton.querySelector("span#flip-start-val");
+// getting strikes toggle button
+const strikesToggleButton = gameSetUp.querySelector("button#toggle-strikes");
+console.log(strikesToggleButton);
+// getting amt of strikes input
+const maxStrikesInput = gameSetUp.querySelector("input#input-max-strikes");
+console.log(maxStrikesInput);
 // getting amt per match/pair input
 const cardsPerMatchInput = gameSetUp.querySelector("input#input-num-per-match");
 // i think it's all good but if not I'll put more

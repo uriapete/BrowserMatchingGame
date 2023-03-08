@@ -70,6 +70,9 @@ let numOfCards: number = 0;
 // number of cards (not pairs!) matched: should equal numOfCards at the end of the game
 let numMatched: number = 0;
 
+// if fails/strikes are enabled or not
+let failsEnabled: boolean = false;
+
 // amt of fails
 let fails: number = 0;
 

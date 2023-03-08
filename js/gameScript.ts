@@ -6,6 +6,10 @@ const gameBoard: HTMLDivElement = document.querySelector(".gameBoard")!;
 // getting setup area
 const gameSetUp: HTMLDivElement = document.querySelector("div#settings")!;
 
+// getting main setup area
+const inputSettingsMain: HTMLDivElement = document.querySelector("div#inputSettings")!;
+// console.log(inputSettingsMain);
+
 // getting row input
 const rowInput: HTMLInputElement = gameSetUp.querySelector("input#rows-input")!;
 

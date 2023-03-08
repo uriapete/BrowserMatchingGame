@@ -4,6 +4,9 @@
 const gameBoard = document.querySelector(".gameBoard");
 // getting setup area
 const gameSetUp = document.querySelector("div#settings");
+// getting main setup area
+const inputSettingsMain = document.querySelector("div#inputSettings");
+console.log(inputSettingsMain);
 // getting row input
 const rowInput = gameSetUp.querySelector("input#rows-input");
 // getting columns input

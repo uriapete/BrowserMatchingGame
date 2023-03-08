@@ -31,6 +31,9 @@ const strikesToggleButton = gameSetUp.querySelector("button#toggle-strikes");
 // getting amt of strikes input
 const maxStrikesInput = gameSetUp.querySelector("input#input-max-strikes");
 // console.log(maxStrikesInput);
+// getting strikes section span
+const strikesDisplay = document.querySelector("span#num-of-strikes");
+console.log(strikesDisplay);
 // getting amt per match/pair input
 const cardsPerMatchInput = gameSetUp.querySelector("input#input-num-per-match");
 // i think it's all good but if not I'll put more
@@ -55,8 +58,8 @@ let fails = 0;
 // maximum amt of fails
 let maxFails = 3;
 // strings for strikes and no strikes
-let noStrikeMark = "O";
-let strikeMark = "X";
+const noStrikeMark = "O";
+const strikeMark = "X";
 // amt of cards per "pair" or how many cards per match
 let matches = 2;
 // number of unmatched cards that are currently flipped

@@ -45,6 +45,10 @@ const strikesToggleButton: HTMLButtonElement = gameSetUp.querySelector("button#t
 const maxStrikesInput: HTMLButtonElement = gameSetUp.querySelector("input#input-max-strikes")!;
 // console.log(maxStrikesInput);
 
+// getting strikes section span
+const strikesDisplay: HTMLSpanElement = document.querySelector("span#num-of-strikes")!;
+console.log(strikesDisplay);
+
 // getting amt per match/pair input
 const cardsPerMatchInput: HTMLInputElement = gameSetUp.querySelector("input#input-num-per-match")!;
 

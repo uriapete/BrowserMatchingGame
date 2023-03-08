@@ -7,6 +7,10 @@ h1, h2{
     text-align: center;
 }
 
+button{
+    color: white;
+}
+
 .flip-at-start-on{
     background-color: rgb(29, 142, 46);
 }
@@ -74,12 +78,17 @@ h1, h2{
     background-color: rgb(80, 182, 255);
     padding: 2vh 3vw;
     border-radius: 10px;
+    color: black;
 }
 
 #flip-start-button{
     padding: 1vh 1vw;
-    color: white;
+    /* color: white; */
 }
+
+/* #toggle-strikes{
+    color: white;
+} */
 
 #no-match-warning{
     font-size: 2em;

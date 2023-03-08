@@ -276,6 +276,17 @@ function congratsText(){
     gameActive=false;
 }
 
+// function for starting strikes
+function createStrikes(){
+    const strikeList : Array<HTMLSpanElement> = [];
+    for (let i = 0; i < maxFails; i++) {
+        const strikeElement : HTMLSpanElement = document.createElement("span")!;
+        strikeElement.textContent=noStrikeMark;
+        strikesDisplay.appendChild(strikeElement);
+        strikeList.push(strikeElement);
+    }
+}
+
 // event listeners:
 
 // event listener for counting amt of cards

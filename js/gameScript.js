@@ -54,6 +54,9 @@ let failsEnabled = false;
 let fails = 0;
 // maximum amt of fails
 let maxFails = 3;
+// strings for strikes and no strikes
+let noStrikeMark = "O";
+let strikeMark = "X";
 // amt of cards per "pair" or how many cards per match
 let matches = 2;
 // number of unmatched cards that are currently flipped
@@ -66,7 +69,7 @@ let flipAtStart = true;
 let cardTimeOut = false;
 // array of cards (HTML div nodes) with .matched
 let matchedCards;
-// array of html cards ughh
+// array of html cards 
 let arrOfHTMLCards;
 // now for functions
 // i was going to have two params: rows : number, columns:number, but decided nah

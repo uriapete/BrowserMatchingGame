@@ -83,6 +83,10 @@ let fails: number = 0;
 // maximum amt of fails
 let maxFails: number = 3;
 
+// strings for strikes and no strikes
+const noStrikeMark: string = "O";
+const strikeMark: string = "X";
+
 // amt of cards per "pair" or how many cards per match
 let matches: number = 2;
 
@@ -101,7 +105,7 @@ let cardTimeOut: boolean = false;
 // array of cards (HTML div nodes) with .matched
 let matchedCards: NodeListOf<HTMLDivElement>;
 
-// array of html cards ughh
+// array of html cards 
 let arrOfHTMLCards: Array<HTMLDivElement>;
 
 // now for functions

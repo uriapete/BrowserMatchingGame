@@ -270,7 +270,7 @@ function congratsText(){
 // event listeners:
 
 // event listener for counting amt of cards
-gameSetUp.addEventListener("input", function(){
+inputSettingsMain.addEventListener("input", function(){
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML="";

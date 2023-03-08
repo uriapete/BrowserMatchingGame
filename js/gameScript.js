@@ -6,7 +6,7 @@ const gameBoard = document.querySelector(".gameBoard");
 const gameSetUp = document.querySelector("div#settings");
 // getting main setup area
 const inputSettingsMain = document.querySelector("div#inputSettings");
-console.log(inputSettingsMain);
+// console.log(inputSettingsMain);
 // getting row input
 const rowInput = gameSetUp.querySelector("input#rows-input");
 // getting columns input
@@ -199,7 +199,7 @@ function congratsText() {
 }
 // event listeners:
 // event listener for counting amt of cards
-gameSetUp.addEventListener("input", function () {
+inputSettingsMain.addEventListener("input", function () {
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML = "";

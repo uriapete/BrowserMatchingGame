@@ -22,6 +22,9 @@
                 <span id="cards-per-match">Cards per match: </span><input type="number" name="num-per-match" id="input-num-per-match" class="gameSetUp">
             </div>
             <div>
+                <button class="gameSetUp" id="toggle-strikes">Strikes: <span id="strike-toggle-val"></span></button><input type="number" name="max-strikes" id="input-max-strikes" class="gameSetUp">
+            </div>
+            <div>
                 <button class="gameSetUp flip-at-start-on" id="flip-start-button">Flip cards over at the start: <span id="flip-start-val">On</span></button>
             </div>
         </div>
@@ -29,6 +32,7 @@
     </div>
     <h2 class="gameMode"></h2>
     <h2 class="congrats"></h2>
+    <h3 class="strikes" id="strikes">Strikes: <span id="num-of-strikes"></span></h3>
     <div class="gameBoard"></div>
 </body>
 </html>

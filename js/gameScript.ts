@@ -298,6 +298,19 @@ gameSetUp.addEventListener("input", function(){
     }
 })
 
+// event listener for fails toggle
+strikesToggleButton.addEventListener("click", function(){
+    if(failsEnabled){
+        failsEnabled = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+    } else {
+        failsEnabled = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+    }
+})
+
 // event listener for flip-start toggle
 flipAtStartButton.addEventListener("click", function(){
     if(flipAtStart){

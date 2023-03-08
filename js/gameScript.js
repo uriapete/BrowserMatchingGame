@@ -24,10 +24,10 @@ const flipAtStartButton = gameSetUp.querySelector("button#flip-start-button");
 const flipAtStartSpan = flipAtStartButton.querySelector("span#flip-start-val");
 // getting strikes toggle button
 const strikesToggleButton = gameSetUp.querySelector("button#toggle-strikes");
-console.log(strikesToggleButton);
+// console.log(strikesToggleButton);
 // getting amt of strikes input
 const maxStrikesInput = gameSetUp.querySelector("input#input-max-strikes");
-console.log(maxStrikesInput);
+// console.log(maxStrikesInput);
 // getting amt per match/pair input
 const cardsPerMatchInput = gameSetUp.querySelector("input#input-num-per-match");
 // i think it's all good but if not I'll put more
@@ -45,6 +45,8 @@ let arrOfCards = [];
 let numOfCards = 0;
 // number of cards (not pairs!) matched: should equal numOfCards at the end of the game
 let numMatched = 0;
+// if fails/strikes are enabled or not
+let failsEnabled = false;
 // amt of fails
 let fails = 0;
 // maximum amt of fails
@@ -215,6 +217,19 @@ gameSetUp.addEventListener("input", function () {
     if (numOfCards % matches !== 0 || numOfCards <= matches) {
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML = `Number of cards needs to be above ${matches} and divisible by ${matches}!`;
+    }
+});
+// event listener for fails toggle
+strikesToggleButton.addEventListener("click", function () {
+    if (failsEnabled) {
+        failsEnabled = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+    }
+    else {
+        failsEnabled = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
     }
 });
 // event listener for flip-start toggle

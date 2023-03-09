@@ -197,6 +197,7 @@ function clearTable(){
     fails=0;
     strikesDisplay.innerHTML="";
     strikeDispArr=[];
+    cardTimeOut = false;
 }
 
 // function to flip cards
@@ -294,10 +295,15 @@ function createStrikes(){
 
 // function for ending game when strike limit is reached
 function failGame(){
+    // flip all cards that aren't already flipped
     for (let i = 0; i < arrOfHTMLCards.length; i++) {
         const element = arrOfHTMLCards[i];
-        if (!((element.classList.contains("matched"))||(element.classList.contains("flip")))){}
+        if (!((element.classList.contains("matched"))||(element.classList.contains("flip")))){
+            flipCard(element);
+        }
     }
+    congrats.textContent="Too bad! Game over!"
+    gameActive=false;
 }
 
 // function for counting and updating amt of cards on inputSettingsMain
@@ -357,6 +363,7 @@ function startGame(){
 
     // creating and showing strikes IF strikes are on
     if(failsEnabled){
+        maxFails = parseInt(maxStrikesInput.value);
         strikeDispArr = createStrikes();
     }
     // else, set text content of strikes display to off
@@ -432,6 +439,8 @@ function startGame(){
                     fails++;
                     if (fails>=maxFails) {
                         // end the game
+                        failGame();
+                        return 0;
                     }
                 }
 

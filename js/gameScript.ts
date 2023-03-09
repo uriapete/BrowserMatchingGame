@@ -349,8 +349,20 @@ function startGame(){
 
     // if numOfCards is NaN, <= amt of cards per "pair", or not divisible by matches (default 2): break
     if((isNaN(numOfCards)||(numOfCards<=matches)||(numOfCards%matches!==0))){return 0;}
+    
+    // creating and showing strikes IF strikes are on
+    if(failsEnabled){
+        maxFails = parseInt(maxStrikesInput.value);
+        if(isNaN(maxFails)){
+            noMatchWarn.textContent="Please input a number into \"Strikes\" form.";
+            return 0;
+        }
+        strikeDispArr = createStrikes();
+    }
+    // else, set text content of strikes display to off
+    else{strikesDisplay.textContent="Off";}
 
-    // this code should only run if numOfCards is usable:
+    // this code should only run if numOfCards (and maxStrikes, if enabled) is usable:
 
     clearTable();
     createDeck(numOfCards);
@@ -361,13 +373,6 @@ function startGame(){
     // setting gamemode text
     gameMode.innerHTML=`${rowInput.value}x${columnsInput.value}`;
 
-    // creating and showing strikes IF strikes are on
-    if(failsEnabled){
-        maxFails = parseInt(maxStrikesInput.value);
-        strikeDispArr = createStrikes();
-    }
-    // else, set text content of strikes display to off
-    else{strikesDisplay.textContent="Off";}
 
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
     if(flipAtStart){

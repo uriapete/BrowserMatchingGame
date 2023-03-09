@@ -265,22 +265,26 @@ function startGame() {
     if ((isNaN(numOfCards) || (numOfCards <= matches) || (numOfCards % matches !== 0))) {
         return 0;
     }
-    // this code should only run if numOfCards is usable:
-    clearTable();
-    createDeck(numOfCards);
-    // this function returns an array of the cards, so save it here
-    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
-    // setting gamemode text
-    gameMode.innerHTML = `${rowInput.value}x${columnsInput.value}`;
     // creating and showing strikes IF strikes are on
     if (failsEnabled) {
         maxFails = parseInt(maxStrikesInput.value);
+        if (isNaN(maxFails)) {
+            noMatchWarn.textContent = "Please input a number into \"Strikes\" form.";
+            return 0;
+        }
         strikeDispArr = createStrikes();
     }
     // else, set text content of strikes display to off
     else {
         strikesDisplay.textContent = "Off";
     }
+    // this code should only run if numOfCards (and maxStrikes, if enabled) is usable:
+    clearTable();
+    createDeck(numOfCards);
+    // this function returns an array of the cards, so save it here
+    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
+    // setting gamemode text
+    gameMode.innerHTML = `${rowInput.value}x${columnsInput.value}`;
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
     if (flipAtStart) {
         for (let i = 0; i < arrOfHTMLCards.length; i++) {

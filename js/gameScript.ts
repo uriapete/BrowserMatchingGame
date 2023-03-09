@@ -276,7 +276,7 @@ function congratsText(){
     gameActive=false;
 }
 
-// function for starting strikes
+// function for creating/starting strikes
 function createStrikes(){
     const strikeList : Array<HTMLSpanElement> = [];
     for (let i = 0; i < maxFails; i++) {
@@ -368,6 +368,7 @@ function startGame(){
         // element = this card
         const element = arrOfHTMLCards[i];
 
+        // i can't move this funct definition outside the event list bc it uses element and this (TS is throwing a fit over this having type any) and i am not sure how to deal with that
         // adding event listeners to the cards
         element.addEventListener("click",function(){
 

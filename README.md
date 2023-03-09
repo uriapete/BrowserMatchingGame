@@ -6,9 +6,21 @@ A simple card matching game where you match numbers. Has customization for amoun
 
 You can find the game here: https://uriapete.github.io/BrowserMatchingGame/
 
-Enter into all of the input prompts before starting. Feel free to tweak the settings to your liking!
+Enter into the input prompts before starting. Feel free to tweak the settings to your liking!
+
 To start, click the start button. The cards will appear below. You can restart at any time by clicking start again.
+
 Click on the cards to flip them. They will reveal the other side. The cards will automatically flip back once you flip over the amount of cards set in the "matches" setting.
+
+### Settings
+
+- The rows and columns input settings change how many rows and columns of cards you'll play with.
+
+- The matches setting input changes how many cards there'll be per matching set (how many per "pair" of cards, if you will)
+
+- The strikes button toggles whether or not you have a limited amount of failed matches. When enabled, the game will end if you get the amount of wrong matches inputted in the corresponding input.
+
+- The "Flip cards over at the start" button toggles whether or not the cards are revealed to you at the start.
 
 Have fun!
 

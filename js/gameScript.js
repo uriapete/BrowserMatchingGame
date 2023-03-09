@@ -4,6 +4,9 @@
 const gameBoard = document.querySelector(".gameBoard");
 // getting setup area
 const gameSetUp = document.querySelector("div#settings");
+// getting main setup area
+const inputSettingsMain = document.querySelector("div#inputSettings");
+// console.log(inputSettingsMain);
 // getting row input
 const rowInput = gameSetUp.querySelector("input#rows-input");
 // getting columns input
@@ -22,6 +25,15 @@ const noMatchWarn = document.querySelector("p#no-match-warning");
 const flipAtStartButton = gameSetUp.querySelector("button#flip-start-button");
 // getting flip at start span (shows on or off)
 const flipAtStartSpan = flipAtStartButton.querySelector("span#flip-start-val");
+// getting strikes toggle button
+const strikesToggleButton = gameSetUp.querySelector("button#toggle-strikes");
+// console.log(strikesToggleButton);
+// getting amt of strikes input
+const maxStrikesInput = gameSetUp.querySelector("input#input-max-strikes");
+// console.log(maxStrikesInput);
+// getting strikes section span
+const strikesDisplay = document.querySelector("span#num-of-strikes");
+// console.log(strikesDisplay);
 // getting amt per match/pair input
 const cardsPerMatchInput = gameSetUp.querySelector("input#input-num-per-match");
 // i think it's all good but if not I'll put more
@@ -39,10 +51,17 @@ let arrOfCards = [];
 let numOfCards = 0;
 // number of cards (not pairs!) matched: should equal numOfCards at the end of the game
 let numMatched = 0;
+// if fails/strikes are enabled or not
+let failsEnabled = false;
 // amt of fails
 let fails = 0;
 // maximum amt of fails
 let maxFails = 3;
+// strings for strikes and no strikes
+const noStrikeMark = "O";
+const strikeMark = "X";
+// array of strikes displayed on document
+let strikeDispArr = [];
 // amt of cards per "pair" or how many cards per match
 let matches = 2;
 // number of unmatched cards that are currently flipped
@@ -55,7 +74,7 @@ let flipAtStart = true;
 let cardTimeOut = false;
 // array of cards (HTML div nodes) with .matched
 let matchedCards;
-// array of html cards ughh
+// array of html cards 
 let arrOfHTMLCards;
 // now for functions
 // i was going to have two params: rows : number, columns:number, but decided nah
@@ -117,6 +136,9 @@ function clearTable() {
     gameMode.innerHTML = "";
     congrats.innerHTML = "";
     fails = 0;
+    strikesDisplay.innerHTML = "";
+    strikeDispArr = [];
+    cardTimeOut = false;
 }
 // function to flip cards
 function flipCard(card) {
@@ -186,9 +208,31 @@ function congratsText() {
     congrats.innerHTML = "Good job! You matched them all!";
     gameActive = false;
 }
-// event listeners:
-// event listener for counting amt of cards
-gameSetUp.addEventListener("input", function () {
+// function for creating/starting strikes
+function createStrikes() {
+    const strikeList = [];
+    for (let i = 0; i < maxFails; i++) {
+        const strikeElement = document.createElement("span");
+        strikeElement.textContent = noStrikeMark;
+        strikesDisplay.appendChild(strikeElement);
+        strikeList.push(strikeElement);
+    }
+    return strikeList;
+}
+// function for ending game when strike limit is reached
+function failGame() {
+    // flip all cards that aren't already flipped
+    for (let i = 0; i < arrOfHTMLCards.length; i++) {
+        const element = arrOfHTMLCards[i];
+        if (!((element.classList.contains("matched")) || (element.classList.contains("flip")))) {
+            flipCard(element);
+        }
+    }
+    congrats.textContent = "Too bad! Game over!";
+    gameActive = false;
+}
+// function for counting and updating amt of cards on inputSettingsMain
+function updateCountSettingDisplay() {
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML = "";
@@ -210,24 +254,9 @@ gameSetUp.addEventListener("input", function () {
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML = `Number of cards needs to be above ${matches} and divisible by ${matches}!`;
     }
-});
-// event listener for flip-start toggle
-flipAtStartButton.addEventListener("click", function () {
-    if (flipAtStart) {
-        flipAtStart = false;
-        this.classList.remove("flip-at-start-on");
-        this.classList.add("flip-at-start-off");
-        flipAtStartSpan.innerHTML = "Off";
-    }
-    else {
-        flipAtStart = true;
-        this.classList.remove("flip-at-start-off");
-        this.classList.add("flip-at-start-on");
-        flipAtStartSpan.innerHTML = "On";
-    }
-});
-// event listener for clicking startbtn
-startBtn.addEventListener("click", function () {
+}
+// function for startbutton
+function startGame() {
     // calculate numOfCards
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
     // set matches
@@ -236,7 +265,20 @@ startBtn.addEventListener("click", function () {
     if ((isNaN(numOfCards) || (numOfCards <= matches) || (numOfCards % matches !== 0))) {
         return 0;
     }
-    // this code should only run if numOfCards is usable:
+    // creating and showing strikes IF strikes are on
+    if (failsEnabled) {
+        maxFails = parseInt(maxStrikesInput.value);
+        if (isNaN(maxFails)) {
+            noMatchWarn.textContent = "Please input a number into \"Strikes\" form.";
+            return 0;
+        }
+        strikeDispArr = createStrikes();
+    }
+    // else, set text content of strikes display to off
+    else {
+        strikesDisplay.textContent = "Off";
+    }
+    // this code should only run if numOfCards (and maxStrikes, if enabled) is usable:
     clearTable();
     createDeck(numOfCards);
     // this function returns an array of the cards, so save it here
@@ -260,6 +302,7 @@ startBtn.addEventListener("click", function () {
     for (let i = 0; i < arrOfHTMLCards.length; i++) {
         // element = this card
         const element = arrOfHTMLCards[i];
+        // i can't move this funct definition outside the event list bc it uses element and this (TS is throwing a fit over this having type any) and i am not sure how to deal with that
         // adding event listeners to the cards
         element.addEventListener("click", function () {
             // below if statement usually shouldn't run at all, but redundancy is good
@@ -299,6 +342,15 @@ startBtn.addEventListener("click", function () {
                             congratsText();
                         }
                     }
+                    else if (failsEnabled) {
+                        strikeDispArr[fails].textContent = strikeMark;
+                        fails++;
+                        if (fails >= maxFails) {
+                            // end the game
+                            failGame();
+                            return 0;
+                        }
+                    }
                     // flip back all unmatched cards
                     flipBack();
                     // let the system know timeout is done for checking
@@ -308,4 +360,37 @@ startBtn.addEventListener("click", function () {
         });
     }
     gameActive = true;
+}
+// event listeners:
+// event listener for counting amt of cards
+inputSettingsMain.addEventListener("input", updateCountSettingDisplay);
+// event listener for fails toggle
+strikesToggleButton.addEventListener("click", function () {
+    if (failsEnabled) {
+        failsEnabled = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+    }
+    else {
+        failsEnabled = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+    }
 });
+// event listener for flip-start toggle
+flipAtStartButton.addEventListener("click", function () {
+    if (flipAtStart) {
+        flipAtStart = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+        flipAtStartSpan.innerHTML = "Off";
+    }
+    else {
+        flipAtStart = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+        flipAtStartSpan.innerHTML = "On";
+    }
+});
+// event listener for clicking startbtn
+startBtn.addEventListener("click", startGame);

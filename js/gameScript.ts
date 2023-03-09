@@ -287,10 +287,8 @@ function createStrikes(){
     }
 }
 
-// event listeners:
-
-// event listener for counting amt of cards
-inputSettingsMain.addEventListener("input", function(){
+// function for counting and updating amt of cards on inputSettingsMain
+function updateCountSettingDisplay(){
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML="";
@@ -320,38 +318,10 @@ inputSettingsMain.addEventListener("input", function(){
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML=`Number of cards needs to be above ${matches} and divisible by ${matches}!`
     }
-})
+}
 
-// event listener for fails toggle
-strikesToggleButton.addEventListener("click", function(){
-    if(failsEnabled){
-        failsEnabled = false;
-        this.classList.remove("flip-at-start-on");
-        this.classList.add("flip-at-start-off");
-    } else {
-        failsEnabled = true;
-        this.classList.remove("flip-at-start-off");
-        this.classList.add("flip-at-start-on");
-    }
-})
-
-// event listener for flip-start toggle
-flipAtStartButton.addEventListener("click", function(){
-    if(flipAtStart){
-        flipAtStart = false;
-        this.classList.remove("flip-at-start-on");
-        this.classList.add("flip-at-start-off");
-        flipAtStartSpan.innerHTML = "Off";
-    } else {
-        flipAtStart = true;
-        this.classList.remove("flip-at-start-off");
-        this.classList.add("flip-at-start-on");
-        flipAtStartSpan.innerHTML = "On";
-    }
-})
-
-// event listener for clicking startbtn
-startBtn.addEventListener("click",function(){
+// function for startbutton
+function startGame(){
     // calculate numOfCards
     numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
 
@@ -454,4 +424,40 @@ startBtn.addEventListener("click",function(){
     }
     gameActive=true;
 
+}
+
+// event listeners:
+
+// event listener for counting amt of cards
+inputSettingsMain.addEventListener("input", updateCountSettingDisplay);
+
+// event listener for fails toggle
+strikesToggleButton.addEventListener("click", function(){
+    if(failsEnabled){
+        failsEnabled = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+    } else {
+        failsEnabled = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+    }
 })
+
+// event listener for flip-start toggle
+flipAtStartButton.addEventListener("click", function(){
+    if(flipAtStart){
+        flipAtStart = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+        flipAtStartSpan.innerHTML = "Off";
+    } else {
+        flipAtStart = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+        flipAtStartSpan.innerHTML = "On";
+    }
+})
+
+// event listener for clicking startbtn
+startBtn.addEventListener("click",startGame)

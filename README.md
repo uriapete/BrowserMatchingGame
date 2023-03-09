@@ -61,8 +61,8 @@ You can see the user stories below for planned features. But to summarize:
 - [x]As a user, I want to be able to choose to have the game either reveal all the cards at the beginning or start with the cards' contents hidden so that I can make the game slightly easier or harder for me.
 - [x]As a user, I want to see the cards' contents revealed when I click on each card so I can see what's in the card I clicked on.
 - [x]As a user, I want the game to automatically flip the cards back over when I fail to match them so that I can try to match again.
-- []As a user, I want the game to end and reveal all of the cards if I fail to match cards 3 times (or more on bigger games) so that I can have a bit of challenge in the game.
-    - []BONUS: As a user, I want to be able to customize the amount of times I can fail so I can give myself a handicap if I want.
+- [x]As a user, I want the game to end and reveal all of the cards if I fail to match cards 3 times (or more on bigger games) so that I can have a bit of challenge in the game.
+    - [x]BONUS: As a user, I want to be able to customize the amount of times I can fail so I can give myself a handicap if I want.
 - [x]As a user, I want the game to keep matched cards flipped over so I can see my progress in the game.
     - BONUS: As a user, I want to see a progress bar showing my progress so I can clearly see my progress in the game.
 - [x]As a user, I want the game to congratulate me if I manage to find all of the matches so that I know when I've completed the game and I can get the satisfaction of completing the game.

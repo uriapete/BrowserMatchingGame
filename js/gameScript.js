@@ -284,8 +284,13 @@ startBtn.addEventListener("click", function () {
     arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
     // setting gamemode text
     gameMode.innerHTML = `${rowInput.value}x${columnsInput.value}`;
-    // creating and showing strikes
-    createStrikes();
+    // creating and showing strikes IF strikes are on
+    if (failsEnabled) {
+        createStrikes();
+    }
+    else {
+        strikesDisplay.textContent = "Off";
+    }
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
     if (flipAtStart) {
         for (let i = 0; i < arrOfHTMLCards.length; i++) {

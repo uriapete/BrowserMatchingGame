@@ -372,8 +372,10 @@ startBtn.addEventListener("click",function(){
     // setting gamemode text
     gameMode.innerHTML=`${rowInput.value}x${columnsInput.value}`;
 
-    // creating and showing strikes
-    createStrikes();
+    // creating and showing strikes IF strikes are on
+    if(failsEnabled){createStrikes();}
+    // else, set text content of strikes display to off
+    else{strikesDisplay.textContent="Off";}
 
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
     if(flipAtStart){

@@ -33,7 +33,7 @@ const maxStrikesInput = gameSetUp.querySelector("input#input-max-strikes");
 // console.log(maxStrikesInput);
 // getting strikes section span
 const strikesDisplay = document.querySelector("span#num-of-strikes");
-console.log(strikesDisplay);
+// console.log(strikesDisplay);
 // getting amt per match/pair input
 const cardsPerMatchInput = gameSetUp.querySelector("input#input-num-per-match");
 // i think it's all good but if not I'll put more
@@ -134,6 +134,7 @@ function clearTable() {
     gameMode.innerHTML = "";
     congrats.innerHTML = "";
     fails = 0;
+    strikesDisplay.innerHTML = "";
 }
 // function to flip cards
 function flipCard(card) {
@@ -202,6 +203,16 @@ function flipToMatched() {
 function congratsText() {
     congrats.innerHTML = "Good job! You matched them all!";
     gameActive = false;
+}
+// function for starting strikes
+function createStrikes() {
+    const strikeList = [];
+    for (let i = 0; i < maxFails; i++) {
+        const strikeElement = document.createElement("span");
+        strikeElement.textContent = noStrikeMark;
+        strikesDisplay.appendChild(strikeElement);
+        strikeList.push(strikeElement);
+    }
 }
 // event listeners:
 // event listener for counting amt of cards
@@ -273,6 +284,8 @@ startBtn.addEventListener("click", function () {
     arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
     // setting gamemode text
     gameMode.innerHTML = `${rowInput.value}x${columnsInput.value}`;
+    // creating and showing strikes
+    createStrikes();
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
     if (flipAtStart) {
         for (let i = 0; i < arrOfHTMLCards.length; i++) {

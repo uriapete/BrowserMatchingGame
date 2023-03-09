@@ -60,6 +60,8 @@ let maxFails = 3;
 // strings for strikes and no strikes
 const noStrikeMark = "O";
 const strikeMark = "X";
+// array of strikes displayed on document
+let strikeDispArr = [];
 // amt of cards per "pair" or how many cards per match
 let matches = 2;
 // number of unmatched cards that are currently flipped
@@ -135,6 +137,7 @@ function clearTable() {
     congrats.innerHTML = "";
     fails = 0;
     strikesDisplay.innerHTML = "";
+    strikeDispArr = [];
 }
 // function to flip cards
 function flipCard(card) {
@@ -204,7 +207,7 @@ function congratsText() {
     congrats.innerHTML = "Good job! You matched them all!";
     gameActive = false;
 }
-// function for starting strikes
+// function for creating/starting strikes
 function createStrikes() {
     const strikeList = [];
     for (let i = 0; i < maxFails; i++) {
@@ -213,10 +216,10 @@ function createStrikes() {
         strikesDisplay.appendChild(strikeElement);
         strikeList.push(strikeElement);
     }
+    return strikeList;
 }
-// event listeners:
-// event listener for counting amt of cards
-inputSettingsMain.addEventListener("input", function () {
+// function for counting and updating amt of cards on inputSettingsMain
+function updateCountSettingDisplay() {
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
     spanNumOfCards.innerHTML = "";
@@ -238,37 +241,9 @@ inputSettingsMain.addEventListener("input", function () {
         spanNumOfCards.classList.add("bold-red-text");
         noMatchWarn.innerHTML = `Number of cards needs to be above ${matches} and divisible by ${matches}!`;
     }
-});
-// event listener for fails toggle
-strikesToggleButton.addEventListener("click", function () {
-    if (failsEnabled) {
-        failsEnabled = false;
-        this.classList.remove("flip-at-start-on");
-        this.classList.add("flip-at-start-off");
-    }
-    else {
-        failsEnabled = true;
-        this.classList.remove("flip-at-start-off");
-        this.classList.add("flip-at-start-on");
-    }
-});
-// event listener for flip-start toggle
-flipAtStartButton.addEventListener("click", function () {
-    if (flipAtStart) {
-        flipAtStart = false;
-        this.classList.remove("flip-at-start-on");
-        this.classList.add("flip-at-start-off");
-        flipAtStartSpan.innerHTML = "Off";
-    }
-    else {
-        flipAtStart = true;
-        this.classList.remove("flip-at-start-off");
-        this.classList.add("flip-at-start-on");
-        flipAtStartSpan.innerHTML = "On";
-    }
-});
-// event listener for clicking startbtn
-startBtn.addEventListener("click", function () {
+}
+// function for startbutton
+function startGame() {
     // calculate numOfCards
     numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
     // set matches
@@ -286,8 +261,9 @@ startBtn.addEventListener("click", function () {
     gameMode.innerHTML = `${rowInput.value}x${columnsInput.value}`;
     // creating and showing strikes IF strikes are on
     if (failsEnabled) {
-        createStrikes();
+        strikeDispArr = createStrikes();
     }
+    // else, set text content of strikes display to off
     else {
         strikesDisplay.textContent = "Off";
     }
@@ -308,6 +284,7 @@ startBtn.addEventListener("click", function () {
     for (let i = 0; i < arrOfHTMLCards.length; i++) {
         // element = this card
         const element = arrOfHTMLCards[i];
+        // i can't move this funct definition outside the event list bc it uses element and this (TS is throwing a fit over this having type any) and i am not sure how to deal with that
         // adding event listeners to the cards
         element.addEventListener("click", function () {
             // below if statement usually shouldn't run at all, but redundancy is good
@@ -347,6 +324,15 @@ startBtn.addEventListener("click", function () {
                             congratsText();
                         }
                     }
+                    else if (failsEnabled) {
+                        if (fails >= maxFails) {
+                            // end the game
+                        }
+                        else {
+                            strikeDispArr[fails].textContent = strikeMark;
+                            fails++;
+                        }
+                    }
                     // flip back all unmatched cards
                     flipBack();
                     // let the system know timeout is done for checking
@@ -356,4 +342,37 @@ startBtn.addEventListener("click", function () {
         });
     }
     gameActive = true;
+}
+// event listeners:
+// event listener for counting amt of cards
+inputSettingsMain.addEventListener("input", updateCountSettingDisplay);
+// event listener for fails toggle
+strikesToggleButton.addEventListener("click", function () {
+    if (failsEnabled) {
+        failsEnabled = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+    }
+    else {
+        failsEnabled = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+    }
 });
+// event listener for flip-start toggle
+flipAtStartButton.addEventListener("click", function () {
+    if (flipAtStart) {
+        flipAtStart = false;
+        this.classList.remove("flip-at-start-on");
+        this.classList.add("flip-at-start-off");
+        flipAtStartSpan.innerHTML = "Off";
+    }
+    else {
+        flipAtStart = true;
+        this.classList.remove("flip-at-start-off");
+        this.classList.add("flip-at-start-on");
+        flipAtStartSpan.innerHTML = "On";
+    }
+});
+// event listener for clicking startbtn
+startBtn.addEventListener("click", startGame);

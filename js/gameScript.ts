@@ -91,6 +91,9 @@ let maxFails: number = 3;
 const noStrikeMark: string = "O";
 const strikeMark: string = "X";
 
+// array of strikes displayed on document
+let strikeDispArr: Array<HTMLSpanElement> = [];
+
 // amt of cards per "pair" or how many cards per match
 let matches: number = 2;
 
@@ -193,6 +196,7 @@ function clearTable(){
     congrats.innerHTML="";
     fails=0;
     strikesDisplay.innerHTML="";
+    strikeDispArr=[];
 }
 
 // function to flip cards
@@ -285,6 +289,15 @@ function createStrikes(){
         strikesDisplay.appendChild(strikeElement);
         strikeList.push(strikeElement);
     }
+    return strikeList;
+}
+
+// function for ending game when strike limit is reached
+function failGame(){
+    for (let i = 0; i < arrOfHTMLCards.length; i++) {
+        const element = arrOfHTMLCards[i];
+        if (!((element.classList.contains("matched"))||(element.classList.contains("flip")))){}
+    }
 }
 
 // function for counting and updating amt of cards on inputSettingsMain
@@ -343,7 +356,9 @@ function startGame(){
     gameMode.innerHTML=`${rowInput.value}x${columnsInput.value}`;
 
     // creating and showing strikes IF strikes are on
-    if(failsEnabled){createStrikes();}
+    if(failsEnabled){
+        strikeDispArr = createStrikes();
+    }
     // else, set text content of strikes display to off
     else{strikesDisplay.textContent="Off";}
 
@@ -411,6 +426,12 @@ function startGame(){
                     // if it is:
                     if (isDone) {
                         congratsText();
+                    }
+                } else if (failsEnabled) {
+                    strikeDispArr[fails].textContent=strikeMark;
+                    fails++;
+                    if (fails>=maxFails) {
+                        // end the game
                     }
                 }
 

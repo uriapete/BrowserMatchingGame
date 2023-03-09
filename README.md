@@ -42,9 +42,6 @@ Congratulations message:
 ## Next steps
 
 You can see the user stories below for planned features. But to summarize:
-- Fail & strike system: the game will end if you fail a match too many times
-    - Customizable max amount of fails
-    - Deck reveals all cards after failed game
 - Warning for restarting game
 - Warning for large amount of cards
 - Timer & best times

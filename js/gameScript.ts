@@ -29,7 +29,7 @@ const congrats: HTMLHeadingElement = document.querySelector("h2.congrats")!;
 const spanNumOfCards: HTMLSpanElement = document.querySelector("span#numOfCards")!;
 
 // getting space for warning text under settings
-const noMatchWarn : HTMLParagraphElement = document.querySelector("p#no-match-warning")!;
+const noMatchWarn: HTMLParagraphElement = document.querySelector("p#no-match-warning")!;
 
 // getting flip at start button
 const flipAtStartButton: HTMLButtonElement = gameSetUp.querySelector("button#flip-start-button")!;
@@ -62,7 +62,7 @@ class Card {
     content: string;
     id: number;
     constructor(cont: string, idnum: number) {
-        
+
         this.content = cont;
         this.id = idnum;
 
@@ -128,7 +128,7 @@ function createDeck(numCards: number) {
 
         // for each "pair"/match set, make new cards with same content, diff id
         for (let k = 0; k < matches; i++, k++) {
-            arrOfCards.push(new Card(content,i))
+            arrOfCards.push(new Card(content, i))
         }
     }
 }
@@ -188,33 +188,33 @@ function createTable(rows: number, columns: number) {
 }
 
 // function to clear table
-function clearTable(){
-    gameBoard.innerHTML="";
-    arrOfCards=[];
-    arrOfHTMLCards=[];
-    gameMode.innerHTML="";
-    congrats.innerHTML="";
-    fails=0;
-    strikesDisplay.innerHTML="";
-    strikeDispArr=[];
+function clearTable() {
+    gameBoard.innerHTML = "";
+    arrOfCards = [];
+    arrOfHTMLCards = [];
+    gameMode.innerHTML = "";
+    congrats.innerHTML = "";
+    fails = 0;
+    strikesDisplay.innerHTML = "";
+    strikeDispArr = [];
     cardTimeOut = false;
 }
 
 // function to flip cards
-function flipCard(card : HTMLDivElement){
+function flipCard(card: HTMLDivElement) {
     // add flip class
     card.classList.add("flip");
 
     // change text of card to back content
-    card.innerHTML=arrOfCards[parseInt(card.id)].content;
+    card.innerHTML = arrOfCards[parseInt(card.id)].content;
 
     // add num of flipped cards
     numFlipped++;
 }
 
-function flipBack(){
+function flipBack() {
     // get list of flipped cards
-    const flippedCards : NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.card.flip");
+    const flippedCards: NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.card.flip");
 
     // for each flipped card:
     for (let i = 0; i < flippedCards.length; i++) {
@@ -224,21 +224,21 @@ function flipBack(){
         element.innerHTML = cardFront;
         element.classList.remove("flip");
     }
-    numFlipped=0;
+    numFlipped = 0;
 }
 
-function checkMatch(){
+function checkMatch() {
     // get list of flipped cards
-    const flippedCards : NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.card.flip")!;
+    const flippedCards: NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.card.flip")!;
 
     // get string to match for: it doesnt matter which one we get it from, we're checking if all of them match anyways
-    const matchFor : string = flippedCards[0].innerHTML;
+    const matchFor: string = flippedCards[0].innerHTML;
 
     // for each card in the list after the first (since we grabbed the content of the first card, so of course the first one will match)...
     for (let i = 1; i < flippedCards.length; i++) {
         const element = flippedCards[i];
         // if the card doesn't match, break the loop and return false
-        if (element.innerHTML !== matchFor) {return false;}
+        if (element.innerHTML !== matchFor) { return false; }
     }
 
     // this code should only run if everything matched, in that case return true
@@ -246,20 +246,20 @@ function checkMatch(){
 }
 
 // funct for checking if the game is done
-function checkFinished(){
-    
+function checkFinished() {
+
     // get all cards that are matched
     matchedCards = gameBoard.querySelectorAll("div.matched");
 
     // if all cards are matched, return true
-    if (matchedCards.length>=numOfCards){return true;}
+    if (matchedCards.length >= numOfCards) { return true; }
 
     // else, return false
-    else {return false;}
+    else { return false; }
 }
 
 // function for turning from flips to matches
-function flipToMatched(){
+function flipToMatched() {
 
     // get all flipped cards
     const flippedCards: NodeListOf<HTMLDivElement> = gameBoard.querySelectorAll("div.flip");
@@ -271,22 +271,22 @@ function flipToMatched(){
         element.classList.remove("flip");
     }
 
-    numFlipped=0;
+    numFlipped = 0;
     return checkFinished();
 }
 
 // function for congrats text
-function congratsText(){
+function congratsText() {
     congrats.innerHTML = "Good job! You matched them all!";
-    gameActive=false;
+    gameActive = false;
 }
 
 // function for creating/starting strikes
-function createStrikes(){
-    const strikeList : Array<HTMLSpanElement> = [];
+function createStrikes() {
+    const strikeList: Array<HTMLSpanElement> = [];
     for (let i = 0; i < maxFails; i++) {
-        const strikeElement : HTMLSpanElement = document.createElement("span")!;
-        strikeElement.textContent=noStrikeMark;
+        const strikeElement: HTMLSpanElement = document.createElement("span")!;
+        strikeElement.textContent = noStrikeMark;
         strikesDisplay.appendChild(strikeElement);
         strikeList.push(strikeElement);
     }
@@ -294,29 +294,29 @@ function createStrikes(){
 }
 
 // function for ending game when strike limit is reached
-function failGame(){
+function failGame() {
     // flip all cards that aren't already flipped
     for (let i = 0; i < arrOfHTMLCards.length; i++) {
         const element = arrOfHTMLCards[i];
-        if (!((element.classList.contains("matched"))||(element.classList.contains("flip")))){
+        if (!((element.classList.contains("matched")) || (element.classList.contains("flip")))) {
             flipCard(element);
         }
     }
-    congrats.textContent="Too bad! Game over!"
-    gameActive=false;
+    congrats.textContent = "Too bad! Game over!"
+    gameActive = false;
 }
 
 // function for counting and updating amt of cards on inputSettingsMain
-function updateCountSettingDisplay(){
+function updateCountSettingDisplay() {
     // every input, these will be removed and updated
     spanNumOfCards.classList.remove("bold-red-text");
-    spanNumOfCards.innerHTML="";
-    noMatchWarn.innerHTML="";
+    spanNumOfCards.innerHTML = "";
+    noMatchWarn.innerHTML = "";
 
     // if any of the inputs are blank or not numbers, warning then break
-    if(isNaN(parseInt(rowInput.value)*parseInt(columnsInput.value))||isNaN(parseInt(cardsPerMatchInput.value))){
+    if (isNaN(parseInt(rowInput.value) * parseInt(columnsInput.value)) || isNaN(parseInt(cardsPerMatchInput.value))) {
 
-        noMatchWarn.innerHTML="Please input numbers into all above fields.";
+        noMatchWarn.innerHTML = "Please input numbers into all above fields.";
 
         return 0;
     }
@@ -324,43 +324,43 @@ function updateCountSettingDisplay(){
     // if the game is not active and the inputs are filled with numbers:
 
     // calculate numOfCards
-    numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
+    numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
 
     // set matches
-    matches=parseInt(cardsPerMatchInput.value);
+    matches = parseInt(cardsPerMatchInput.value);
 
     // set the html text on screen to numofcards
-    spanNumOfCards.innerHTML=numOfCards.toString();
+    spanNumOfCards.innerHTML = numOfCards.toString();
 
     // if numOfCards is below or not divisible by matches (default: 2): put up warnings
-    if (numOfCards%matches!==0||numOfCards<=matches){
+    if (numOfCards % matches !== 0 || numOfCards <= matches) {
         spanNumOfCards.classList.add("bold-red-text");
-        noMatchWarn.innerHTML=`Number of cards needs to be above ${matches} and divisible by ${matches}!`
+        noMatchWarn.innerHTML = `Number of cards needs to be above ${matches} and divisible by ${matches}!`
     }
 }
 
 // function for startbutton
-function startGame(){
+function startGame() {
     // calculate numOfCards
-    numOfCards=parseInt(rowInput.value) * parseInt(columnsInput.value);
+    numOfCards = parseInt(rowInput.value) * parseInt(columnsInput.value);
 
     // set matches
-    matches=parseInt(cardsPerMatchInput.value);
+    matches = parseInt(cardsPerMatchInput.value);
 
     // if numOfCards is NaN, <= amt of cards per "pair", or not divisible by matches (default 2): break
-    if((isNaN(numOfCards)||(numOfCards<=matches)||(numOfCards%matches!==0))){return 0;}
-    
+    if ((isNaN(numOfCards) || (numOfCards <= matches) || (numOfCards % matches !== 0))) { return 0; }
+
     // creating and showing strikes IF strikes are on
-    if(failsEnabled){
+    if (failsEnabled) {
         maxFails = parseInt(maxStrikesInput.value);
-        if(isNaN(maxFails)){
-            noMatchWarn.textContent="Please input a number into \"Strikes\" form.";
+        if (isNaN(maxFails)) {
+            noMatchWarn.textContent = "Please input a number into \"Strikes\" form.";
             return 0;
         }
         strikeDispArr = createStrikes();
     }
     // else, set text content of strikes display to off
-    else{strikesDisplay.textContent="Off";}
+    else { strikesDisplay.textContent = "Off"; }
 
     // this code should only run if numOfCards (and maxStrikes, if enabled) is usable:
 
@@ -368,14 +368,14 @@ function startGame(){
     createDeck(numOfCards);
 
     // this function returns an array of the cards, so save it here
-    arrOfHTMLCards = createTable(parseInt(rowInput.value),parseInt(columnsInput.value));
+    arrOfHTMLCards = createTable(parseInt(rowInput.value), parseInt(columnsInput.value));
 
     // setting gamemode text
-    gameMode.innerHTML=`${rowInput.value}x${columnsInput.value}`;
+    gameMode.innerHTML = `${rowInput.value}x${columnsInput.value}`;
 
 
     // if flipAtStart is enabled, flip cards at beginning, pause, then flip back
-    if(flipAtStart){
+    if (flipAtStart) {
         for (let i = 0; i < arrOfHTMLCards.length; i++) {
             const element = arrOfHTMLCards[i];
             flipCard(element);
@@ -385,7 +385,7 @@ function startGame(){
                 const element = arrOfHTMLCards[i];
                 flipBack();
             }
-            
+
         }, 3000);
     }
 
@@ -397,20 +397,20 @@ function startGame(){
 
         // i can't move this funct definition outside the event list bc it uses element and this (TS is throwing a fit over this having type any) and i am not sure how to deal with that
         // adding event listeners to the cards
-        element.addEventListener("click",function(){
+        element.addEventListener("click", function () {
 
             // below if statement usually shouldn't run at all, but redundancy is good
             // if game isn't active, break
-            if(!gameActive){return 0;}
+            if (!gameActive) { return 0; }
 
             // if cards are being timed out for checking, break
-            if(cardTimeOut){return 0;}
+            if (cardTimeOut) { return 0; }
 
             // if the element is already matched, break
-            if(element.classList.contains("matched")){return 0;}
+            if (element.classList.contains("matched")) { return 0; }
 
             // if the element is already flipped, break
-            if(element.classList.contains("flip")){return 0;}
+            if (element.classList.contains("flip")) { return 0; }
 
             // the following code should only run if the card wasn't already matched
 
@@ -418,47 +418,48 @@ function startGame(){
             flipCard(this);
 
             // if number of flipped cards >= matches
-            if (numFlipped>=matches){
+            if (numFlipped >= matches) {
 
                 // add a mark to not allow matches before the timeout funct executes!
 
                 cardTimeOut = true;
 
                 // set a timeout so the user can see what cards they matched
-                setTimeout(function(){
-                // check if the cards match
-                const isMatch : boolean = checkMatch();
+                setTimeout(function () {
+                    // check if the cards match
+                    const isMatch: boolean = checkMatch();
 
-                // if they do: 
-                if (isMatch) {
+                    // if they do: 
+                    if (isMatch) {
 
-                    // turn the cards into matched cards and check if the game is done:
-                    let isDone: boolean = flipToMatched();
+                        // turn the cards into matched cards and check if the game is done:
+                        let isDone: boolean = flipToMatched();
 
-                    // if it is:
-                    if (isDone) {
-                        congratsText();
+                        // if it is:
+                        if (isDone) {
+                            congratsText();
+                        }
+                    } else if (failsEnabled) {
+                        strikeDispArr[fails].textContent = strikeMark;
+                        fails++;
+                        if (fails >= maxFails) {
+                            // end the game
+                            failGame();
+                            return 0;
+                        }
                     }
-                } else if (failsEnabled) {
-                    strikeDispArr[fails].textContent=strikeMark;
-                    fails++;
-                    if (fails>=maxFails) {
-                        // end the game
-                        failGame();
-                        return 0;
-                    }
-                }
 
-                // flip back all unmatched cards
-                flipBack();
+                    // flip back all unmatched cards
+                    flipBack();
 
-                // let the system know timeout is done for checking
-                cardTimeOut = false;
-            },500)}
+                    // let the system know timeout is done for checking
+                    cardTimeOut = false;
+                }, 500)
+            }
 
         })
     }
-    gameActive=true;
+    gameActive = true;
 
 }
 
@@ -468,8 +469,8 @@ function startGame(){
 inputSettingsMain.addEventListener("input", updateCountSettingDisplay);
 
 // event listener for fails toggle
-strikesToggleButton.addEventListener("click", function(){
-    if(failsEnabled){
+strikesToggleButton.addEventListener("click", function () {
+    if (failsEnabled) {
         failsEnabled = false;
         this.classList.remove("flip-at-start-on");
         this.classList.add("flip-at-start-off");
@@ -481,8 +482,8 @@ strikesToggleButton.addEventListener("click", function(){
 })
 
 // event listener for flip-start toggle
-flipAtStartButton.addEventListener("click", function(){
-    if(flipAtStart){
+flipAtStartButton.addEventListener("click", function () {
+    if (flipAtStart) {
         flipAtStart = false;
         this.classList.remove("flip-at-start-on");
         this.classList.add("flip-at-start-off");
@@ -496,4 +497,4 @@ flipAtStartButton.addEventListener("click", function(){
 })
 
 // event listener for clicking startbtn
-startBtn.addEventListener("click",startGame)
+startBtn.addEventListener("click", startGame)

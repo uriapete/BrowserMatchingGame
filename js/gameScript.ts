@@ -349,7 +349,9 @@ function startGame() {
 
     // if numOfCards is NaN, <= amt of cards per "pair", or not divisible by matches (default 2): break
     if ((isNaN(numOfCards) || (numOfCards <= matches) || (numOfCards % matches !== 0))) { return 0; }
-
+    
+    clearTable();
+    
     // creating and showing strikes IF strikes are on
     if (failsEnabled) {
         maxFails = parseInt(maxStrikesInput.value);
@@ -364,7 +366,6 @@ function startGame() {
 
     // this code should only run if numOfCards (and maxStrikes, if enabled) is usable:
 
-    clearTable();
     createDeck(numOfCards);
 
     // this function returns an array of the cards, so save it here
